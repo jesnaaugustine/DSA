@@ -78,10 +78,58 @@ def gcd_2(N1,N2):
         return max(N1,N2)
     return gcd_2(min(N1,N2),max(N1,N2)-min(N1,N2))
     
+##############
+#LCM of two numbers
+#method1 - unsing prime factors
+def lcm(N1,N2):
+    prime1= Prime(N1)
+    factors1 = prime1.prime_factors()
+    prime2 = Prime(N2)
+    factors2 = prime2.prime_factors()
+    print(factors1,factors2)
+    fact_set1 = set(factors1.keys())
+    fact_set2 = set(factors2)
+    c_set = fact_set1.union(fact_set2)
+    print(c_set)
+    result =1
+    for x in c_set:
+        result *=(x**(max(factors1.get(x,0),factors2.get(x,0))))
+    
+    return result
+####################
+#Armstrong number
+'''  
+An Amrstrong number is a number that is equal to the sum of its own digits each raised to the power of the number of digits.
+Example 1:
+Input:N = 153
 
+Output:True
+
+Explanation: 13+53+33 = 1 + 125 + 27 = 153
+                        
+Example 2:
+Input:N = 371                
+
+Output: True
+
+Explanation: 33+53+13 = 27 + 343 + 1 = 371
+
+Time Complexity: O(log10N + 1)
+'''
+from copy import copy
+def armstrong(N):
+    result =0
+    l = len(str(N))
+    N1 = copy(N)
+    while N1>0:
+        result += (N1%10)**l
+        N1 =N1//10
+    return result ==N
 
 if __name__=='__main__':
     #print(count_digits_2(1000))
     #print(reverse(10002))
     #print(is_palindrome_2(1001))
-    print(gcd_2(20,10))
+    #print(gcd_2(20,10))
+    #print(lcm(11,10))
+    print(armstrong(20))

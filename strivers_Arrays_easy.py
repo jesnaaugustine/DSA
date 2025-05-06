@@ -42,5 +42,27 @@ def sml_lrg(arr):
         if arr[i]>s_lrg:
             s_lrg,lrg = lrg,max(arr[i],lrg)
     return (s_sml,s_lrg)
+###########
+#check if the array sorted
+def is_sorted(arr):
+    for i in range(1,len(arr)):
+        if arr[i]<arr[i-1]:
+            return False
+    return True
+###########
+#remove duplicates in-place
+def remove_dup(arr):
+    l=0
+    r =0
+    while r<len(arr):
+        if arr[l]!=arr[r]:
+            l +=1
+            arr[l] = arr[r]
+        r+=1
+    print(arr)
+    return l+1
+
+
+
 if __name__=='__main__':
-    print(sml_lrg([1,3,2,4]))
+    print(remove_dup([1,1,2,2,2,3,3]))

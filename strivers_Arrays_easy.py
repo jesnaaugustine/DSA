@@ -62,7 +62,70 @@ def remove_dup(arr):
     print(arr)
     return l+1
 
+#############
+#Left Rotate the Array by k position
+def left_rotate(arr,k):
+    if k>len(arr):
+        k =k%len(arr)
+    return arr[k:] +arr[:k]
+###########
+#Move all Zeros to the end of the array
+def move_zero_left(arr):
+    l =0
+    r =1
+    while r<len(arr):
+        if arr[l]==0 and arr[r]!=0:
+            arr[l],arr[r]=arr[r],arr[l]
+            l =r-1
+        if arr[l]!=0:
+            l+=1
+        r+=1
+    return arr
+########
+#linear serch in array
+#if found return zero based index else -1
+def linear_search(arr,k):
+    res =-1
+    for i in range(len(arr)):
+        if arr[i]==k:
+            res =i
+            break
+    return res
+
+
+############
+#Union of Two Sorted Arrays
+def union_sorted(arr1,arr2):
+    l =0
+    r =0
+    res =[]
+    while l<len(arr1) and r<len(arr2):
+        if arr1[l]<arr2[r]:
+            if arr1[l] not in res:
+                res.append(arr1[l])
+            l+=1
+        elif arr1[l]>arr2[r]:
+            if arr2[r] not in res:
+                res.append(arr2[r])
+            r+=1
+        else:
+            if arr1[l] not in res:
+                res.append(arr1[l])
+            l+=1
+            r+=1
+    if l !=len(arr1):
+        for i in range(l,len(arr1)):
+            if res[-1]!=arr1[i]:
+                res.append(arr1[i])
+    if r !=len(arr2):
+        for i in range(r,len(arr2)):
+            if res[-1]!=arr2[i]:
+                res.append(arr2[i])
+    return res
 
 
 if __name__=='__main__':
-    print(remove_dup([1,1,2,2,2,3,3]))
+    #print(remove_dup([1,1,2,2,2,3,3]))
+    #print(left_rotate([1,2,3,4],5))
+    #print(linear_search([0,0,0,5],4))
+    print(union_sorted([1,2,2,3,4],[2,4,5,6,7,8]))

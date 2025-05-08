@@ -123,9 +123,50 @@ def union_sorted(arr1,arr2):
                 res.append(arr2[i])
     return res
 
+###########
+#Find the missing number in an array
+#method 1 - using sum formula
+def missing_number(arr,N):
+    a_sum = N*(N+1)/2
+    arr_sum =sum(arr)
+    return int(a_sum-arr_sum)
+
+#method 2 - using xor property
+#a^a =0
+#a^0=a
+def missing_number2(arr,N):
+    a_xor =0
+    arr_xor =0
+    for i in range(N+1):
+        a_xor =a_xor^i
+    for j in arr:
+        arr_xor ^=j
+    return a_xor ^arr_xor
+
+
+##########
+#Count Maximum Consecutive One's in the array
+def consecutive_one(arr):
+    c =0
+    l =0
+    r =1
+    while r<len(arr):
+        if arr[l]!=1:
+            l+=1
+        else:
+            if arr[r]!=1:  
+                c =max(c,r-l)
+                l = r  
+        r+=1
+    if arr[l]==1 and arr[r-1]==1:
+        c = max(c,r-l)
+    return c
+
 
 if __name__=='__main__':
     #print(remove_dup([1,1,2,2,2,3,3]))
     #print(left_rotate([1,2,3,4],5))
     #print(linear_search([0,0,0,5],4))
-    print(union_sorted([1,2,2,3,4],[2,4,5,6,7,8]))
+    #print(union_sorted([1,2,2,3,4],[2,4,5,6,7,8]))
+    #print(missing_number2([1,2,3,5],5))
+    print(consecutive_one([0,1,1,0]))

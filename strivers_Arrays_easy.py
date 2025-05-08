@@ -162,6 +162,62 @@ def consecutive_one(arr):
         c = max(c,r-l)
     return c
 
+###########
+#Find the number that appears once, and the other numbers twice
+#method 1- using dictionary
+def one_number(arr):
+    dict ={}
+    for i in arr:
+        dict[i] = dict.get(i,0)+1
+    return [item[0] for item in dict.items() if item[1]!=2][0]
+
+#method-2 - using xor property
+def one_number1(arr):
+    x_or =0
+    for i in arr:
+        x_or ^=i
+    return x_or
+
+#########
+#Longest Subarray with given Sum K
+def lon_sub_array(arr,k):
+    c =0
+    r=0
+    c_sum = 0
+    c_c =0
+    while r<len(arr):
+        c_sum +=arr[r]
+        c_c +=1
+        if c_sum ==k:
+            c=max(c,c_c)
+            c_sum=0
+            c_c=0
+            r+=1
+        elif c_sum>k:
+            if arr[r]==k:
+                c=max(c,c_c)
+            c_sum =0
+            c_c =0
+            r+=1
+        else:
+            r+=1
+    return c
+        
+#method 2 - using prefix sum
+def log_sub_arr_prefix(arr,k):
+    dict ={}
+    c_sum =0
+    max_len =0
+    for i in range(len(arr)):
+        c_sum+=arr[i]
+        if c_sum==k:
+            max_len=max(max_len,i+1)
+        rem = c_sum-k
+        if rem in dict:
+            max_len = max(max_len,i-dict[rem])
+        dict[c_sum] = min(i,dict.get(c_sum,float('inf')))
+    return max_len
+
 
 if __name__=='__main__':
     #print(remove_dup([1,1,2,2,2,3,3]))
@@ -169,4 +225,6 @@ if __name__=='__main__':
     #print(linear_search([0,0,0,5],4))
     #print(union_sorted([1,2,2,3,4],[2,4,5,6,7,8]))
     #print(missing_number2([1,2,3,5],5))
-    print(consecutive_one([0,1,1,0]))
+    #print(consecutive_one([0,1,1,0]))
+    #print(one_number1([1,1,2,2,3,3,4,4,5]))
+    print(log_sub_arr_prefix([2,0,0,1,3],3))

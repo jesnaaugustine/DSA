@@ -1,4 +1,11 @@
 ######
+'''  
+Covers medium and easy probles.
+concept used:
+1. Two pointers
+2. xor property
+3. prefix sum( to find longest subarry with sum k)
+'''
 #max of array
 def max_array(arr):
     return max(arr)

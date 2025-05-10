@@ -4,6 +4,7 @@ concept used:
 1. Two pointers
 2. Dutch national Flag algorithm --sort arry which have only 0,1 and 2
 3. Moore’s Voting Algorithm -- get majority(more than N/2 occurance) element from array
+4. Kadane's Algorithm - maximum sum subarray
 '''
 
 ##Two Sum : Check if a pair with given sum exists in Array
@@ -127,6 +128,11 @@ def moore_voting(arr):
 
  #######
  # #Maximum Subarray Sum in an Array -kaden's algorithm
+ ''' 
+  We will run a loop(say i) to iterate the given array.
+Now, while iterating we will add the elements to the sum variable and consider the maximum one.
+If at any point the sum becomes negative we will set the sum to 0 as we are not going to consider it as a part of our answer.
+  '''
 def max_sum(arr):
     max_s = float('-inf')
     c_s =0

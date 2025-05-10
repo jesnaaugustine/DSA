@@ -128,8 +128,8 @@ def moore_voting(arr):
 
  #######
  # #Maximum Subarray Sum in an Array -kaden's algorithm
- ''' 
-  We will run a loop(say i) to iterate the given array.
+''' 
+We will run a loop(say i) to iterate the given array.
 Now, while iterating we will add the elements to the sum variable and consider the maximum one.
 If at any point the sum becomes negative we will set the sum to 0 as we are not going to consider it as a part of our answer.
   '''
@@ -143,7 +143,32 @@ def max_sum(arr):
             c_s =0
         
     return max_s
-        
+##########
+#Maximum Subarray Sum in an Array - returs array
+import copy
+def subarray_max_sum(arr):
+    max_s =float('-inf')
+    #dummy_ar =[]
+    #arr_r =[]
+    c_s =0
+    l =0
+    r =0
+    s =0
+    for i in range(len(arr)):
+        c_s +=arr[i]
+        #dummy_ar.append(arr[i])
+        if c_s>max_s:
+            max_s =c_s
+            #arr_r =copy.copy(dummy_ar)
+            l =s
+            r =i
+        if c_s<0:
+            c_s=0
+            s =i+1
+            #dummy_ar =[]
+    return arr[l:r+1],max_s
+
+
     
            
 if __name__=='__main__':
@@ -151,5 +176,5 @@ if __name__=='__main__':
     #print(count_sort([0,2,2,1,0,1,1]))
     #print(dutch_national_flag_sort([1,2,0,0,2,1,1]))
     #print(moore_voting([1,2]))
-    print(max_sum([1,-3,4,-1,2,1,-5,4]))
+    print(subarray_max_sum([1,-3,4,-1,2,1,-5,4]))
     #print(max_sum([1,2,3]))

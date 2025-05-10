@@ -2,7 +2,8 @@
 '''  
 concept used:
 1. Two pointers
-2. Dutch national Flag algorithm
+2. Dutch national Flag algorithm --sort arry which have only 0,1 and 2
+3. Moore’s Voting Algorithm -- get majority(more than N/2 occurance) element from array
 '''
 
 ##Two Sum : Check if a pair with given sum exists in Array
@@ -83,8 +84,66 @@ def dutch_national_flag_sort(arr):
             arr[m],arr[h]=arr[h],arr[m]
             h-=1
     return arr
+#############
+#Find the Majority Element that occurs more than N/2 times
+def majority(arr):
+    dict ={}
+    for i in arr:
+        dict[i] = dict.get(i,0)+1
+    res = [item[0] for item in dict.items() if item[1]>=len(arr)/2]
+    return res
+#method 2 -Moore’s Voting Algorithm
+'''  
+Approach: 
+Initialize 2 variables:
+Count –  for tracking the count of element
+Element – for which element we are counting
+Traverse through the given array.
+If Count is 0 then store the current element of the array as Element.
+If the current element and Element are the same increase the Count by 1.
+If they are different decrease the Count by 1.
+The integer present in Element should be the result we are expecting 
+'''
+def moore_voting(arr):
+    c =0
+    ele =float('inf')
+    for i in arr:
+        if c ==0:
+            ele =i
+            c+=1
+        elif ele ==i:
+            c+=1
+        elif ele !=i:
+            c-=1
+    #checking is ele is majority or not
+    cnt1 = 0
+    for i in range(len(arr)):
+        if arr[i] == ele:
+            cnt1 += 1
 
+    if cnt1 > (len(arr) / 2):
+        return ele
+    return -1
+
+ #######
+ # #Maximum Subarray Sum in an Array -kaden's algorithm
+def max_sum(arr):
+    max_s = float('-inf')
+    c_s =0
+    for i in range(len(arr)):
+        c_s +=arr[i]
+        max_s = max(max_s,c_s)
+        if c_s<0:
+            c_s =0
+        
+    return max_s
+        
+    
+           
 if __name__=='__main__':
     #print(two_sum2([2,6,5,8,11],14))
     #print(count_sort([0,2,2,1,0,1,1]))
-    print(dutch_national_flag_sort([1,2,0,0,2,1,1]))
+    #print(dutch_national_flag_sort([1,2,0,0,2,1,1]))
+    #print(moore_voting([1,2]))
+    print(max_sum([1,-3,4,-1,2,1,-5,4]))
+    #print(max_sum([1,2,3]))

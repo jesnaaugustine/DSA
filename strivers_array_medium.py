@@ -168,13 +168,69 @@ def subarray_max_sum(arr):
             #dummy_ar =[]
     return arr[l:r+1],max_s
 
+######
+#Stock Buy And Sell--two pinters
+def stock(arr):
+    b =0
+    s =0
+    profit = 0
+    while s<len(arr):
+        profit =max(profit, arr[s]-arr[b])
+        if arr[s]<arr[b]:
+            b = s
+        s+=1
+    return profit
+
+######
+#Rearrange Array Elements by Sign
+''' 
+Input:
+arr[] = {1,2,-4,-5}, N = 4
+Output:
+1 -4 2 -5
+'''
+#method 1 - brute force -time complexity -N^2
+def alternative_sign(arr):
+    arr_pos =[]
+    arr_neg =[]
+    for a in arr:
+        if a>=0:
+            arr_pos.append(a)
+        else:
+            arr_neg.append(a)
+    l =0
+    ans =[]
+    while l<len(arr_pos) and l<len(arr_neg):
+        ans.append(arr_pos[l])
+        ans.append(arr_neg[l])
+        l+=1
+    if l!=len(arr_pos):
+        ans.extend(arr_pos[l:])
+    if l!=len(arr_neg):
+        ans.extend(arr_neg[l:])
+    return ans
 
     
+#method 2 - not in place - create new array
+def alternative_sign2(arr):
+    ans =[0]*len(arr)
+    pos_i =0
+    neg_i =1
+    for a in arr:
+        if a>=0:
+            ans[pos_i]=a
+            pos_i +=2
+        else:
+            ans[neg_i]=a
+            neg_i+=2
+    return ans
            
 if __name__=='__main__':
     #print(two_sum2([2,6,5,8,11],14))
     #print(count_sort([0,2,2,1,0,1,1]))
     #print(dutch_national_flag_sort([1,2,0,0,2,1,1]))
     #print(moore_voting([1,2]))
-    print(subarray_max_sum([1,-3,4,-1,2,1,-5,4]))
+    #print(subarray_max_sum([1,-3,4,-1,2,1,-5,4]))
     #print(max_sum([1,2,3]))
+    #print(stock([7,1,5,3,6,4]))
+    print(alternative_sign([1,2,3,-1,-2,-3,-3,5,6,7,8]))

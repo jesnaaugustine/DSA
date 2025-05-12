@@ -224,13 +224,43 @@ def alternative_sign2(arr):
             ans[neg_i]=a
             neg_i+=2
     return ans
-           
+##########
+# #next_permutation : find next lexicographically greater permutatio
+''' 
+Find the break-point, i: Break-point means the first index i from the back of the given array where arr[i] becomes smaller than arr[i+1].
+For example, if the given array is {2,1,5,4,3,0,0}, the break-point will be index 1(0-based indexing). Here from the back of the array, index 1 is the first index where arr[1] i.e. 1 is smaller than arr[i+1] i.e. 5.
+To find the break-point, using a loop we will traverse the array backward and store the index i where arr[i] is less than the value at index (i+1) i.e. arr[i+1].
+If such a break-point does not exist i.e. if the array is sorted in decreasing order, the given permutation is the last one in the sorted order of all possible permutations. So, the next permutation must be the first i.e. the permutation in increasing order.
+So, in this case, we will reverse the whole array and will return it as our answer.
+If a break-point exists:
+Find the smallest number i.e. > arr[i] and in the right half of index i(i.e. from index i+1 to n-1) and swap it with arr[i].
+Reverse the entire right half(i.e. from index i+1 to n-1) of index i. And finally, return the array.
+'''
+def next_per(arr):
+    break_in = -1
+    for i in range(len(arr)-1,0,-1):
+        if arr[i]>arr[i-1]:
+            break_in = i-1
+            break
+    if break_in ==-1:
+        ans  =arr[len(arr)-1::-1]
+        return ans
+    for j in range(len(arr)-1,break_in,-1):
+        if arr[break_in]<arr[j]:
+            arr[break_in],arr[j]=arr[j],arr[break_in]
+            break
+
+    ans = arr[:break_in+1]+arr[len(arr)-1:break_in:-1]
+    return ans
+
+
 if __name__=='__main__':
     #print(two_sum2([2,6,5,8,11],14))
     #print(count_sort([0,2,2,1,0,1,1]))
     #print(dutch_national_flag_sort([1,2,0,0,2,1,1]))
-    #print(moore_voting([1,2]))
+    #print(moore_voting([1,2]))s
     #print(subarray_max_sum([1,-3,4,-1,2,1,-5,4]))
     #print(max_sum([1,2,3]))
     #print(stock([7,1,5,3,6,4]))
-    print(alternative_sign([1,2,3,-1,-2,-3,-3,5,6,7,8]))
+    #print(alternative_sign([1,2,3,-1,-2,-3,-3,5,6,7,8]))
+    print(next_per([5,4,3,2,1]))

@@ -5,6 +5,7 @@ concept used:
 2. Dutch national Flag algorithm --sort arry which have only 0,1 and 2
 3. Moore’s Voting Algorithm -- get majority(more than N/2 occurance) element from array
 4. Kadane's Algorithm - maximum sum subarray
+5. transpose a matrix
 '''
 
 ##Two Sum : Check if a pair with given sum exists in Array
@@ -298,7 +299,55 @@ def con_seq(arr):
             l = max(l,e-s+1)
         e+=1
     return l
+##########
+#Set Matrix Zero
+'''  
+Given a matrix if an element in the matrix is 0 then you will have to set its entire column and row to 0 and then return the matrix.
+Input: matrix=[[0,1,2,0],[3,4,5,2],[1,3,1,5]]
 
+Output:[[0,0,0,0],[0,4,5,0],[0,3,1,0]]
+
+Explanation:Since matrix[0][0]=0 and matrix[0][3]=0. Therefore 1st row, 1st column and 4th column will be set to 0
+'''
+def set_matrix(arr):
+    zero =[]
+    for i in range(len(arr)):
+        for j in range(len(arr[0])):
+            if arr[i][j]==0:
+                zero.append((i,j))
+    for k in zero:
+        arr[k[0]] = [0]*len(arr[0])
+        for l in range(len(arr)):
+            arr[l][k[1]]=0
+    return arr
+
+#########
+#Rotate Image by 90 degree
+''' 
+Given a matrix, your task is to rotate the matrix 90 degrees clockwise.
+Input: [[1,2,3],[4,5,6],[7,8,9]]
+
+Output: [[7,4,1],[8,5,2],[9,6,3]]
+
+'''
+
+def rotate_90(arr):
+    n = len(arr)
+    rotated = [[0 for _ in range(len(arr[0]))] for _ in range(len(arr))]
+    for i in range(n):
+        for j in range(len(arr[0])):
+            rotated[j][n - i - 1] = arr[i][j]
+    return rotated
+##transpose the matrix and reverese each row 
+def rotate_90_2(arr):
+    r = len(arr)
+    c = len(arr[0])
+    for i in range(r):
+        for j in range(i):
+            arr[i][j],arr[j][i] = arr[j][i],arr[i][j]
+    for i in range(r):
+        arr[i] = arr[i][c-1::-1]
+    return arr
 if __name__=='__main__':
     #print(two_sum2([2,6,5,8,11],14))
     #print(count_sort([0,2,2,1,0,1,1]))
@@ -310,4 +359,6 @@ if __name__=='__main__':
     #print(alternative_sign([1,2,3,-1,-2,-3,-3,5,6,7,8]))
     #print(next_per([5,4,3,2,1]))
     #print(leaders([10, 22, 12, 3, 0, 6]))
-    print(con_seq([3, 8, 5, 7, 6]))
+    #print(con_seq([3, 8, 5, 7, 6]))
+    #print(set_matrix([[0,1,2,0],[3,4,5,2],[1,3,1,5]]))
+    print(rotate_90_2([[1,2,3],[4,5,6],[7,8,9]]))

@@ -225,7 +225,7 @@ def alternative_sign2(arr):
             neg_i+=2
     return ans
 ##########
-# #next_permutation : find next lexicographically greater permutatio
+# #next_permutation : find next lexicographically greater permutation
 ''' 
 1.Find the break-point, i: Break-point means the first index i from the back of the given array where arr[i] becomes smaller than arr[i+1].
     For example, if the given array is {2,1,5,4,3,0,0}, the break-point will be index 1(0-based indexing). Here from the back of the array, index 1 is the first index where arr[1] i.e. 1 is smaller than arr[i+1] i.e. 5.
@@ -252,7 +252,52 @@ def next_per(arr):
 
     ans = arr[:break_in+1]+arr[len(arr)-1:break_in:-1]
     return ans
+#######
+#Leaders in an Array
+''' 
+Problem Statement: Given an array, print all the elements which are leaders. A Leader is an element that is greater than all of the elements on its right side in the array.
+Input:
+ arr = [10, 22, 12, 3, 0, 6]
+Output:
+ 22 12 6
+Explanation:
+ 6 is a leader. In addition to that, 12 is greater than all the elements in its right side (3, 0, 6), also 22 is greater than 12, 3, 0, 6.
+'''
+def leaders(arr):
+    res =[]
+    g_max = float('-inf')
+    for i in range(len(arr)-1,-1,-1):
+        if arr[i]>g_max:
+            res.append(arr[i])
+        g_max =max(g_max,arr[i])
+    return res
+############
+#Longest Consecutive Sequence in an Array
+''' 
+Problem Statement: You are given an array of ‘N’ integers. You need to find the length of the longest sequence which contains the consecutive elements.
 
+Input: [3, 8, 5, 7, 6]
+
+Output: 4
+
+Explanation: The longest consecutive subsequence is 5, 6, 7, and 8.
+'''
+def con_seq(arr):
+    s_arr=sorted(arr)
+    l =0
+    s=0
+    e =1
+    c_l =1
+    while e<len(arr):
+        if s_arr[e]-s_arr[s] !=c_l:
+            s=e
+            c_l =1
+            
+        else:
+            c_l+=1
+            l = max(l,e-s+1)
+        e+=1
+    return l
 
 if __name__=='__main__':
     #print(two_sum2([2,6,5,8,11],14))
@@ -263,4 +308,6 @@ if __name__=='__main__':
     #print(max_sum([1,2,3]))
     #print(stock([7,1,5,3,6,4]))
     #print(alternative_sign([1,2,3,-1,-2,-3,-3,5,6,7,8]))
-    print(next_per([5,4,3,2,1]))
+    #print(next_per([5,4,3,2,1]))
+    #print(leaders([10, 22, 12, 3, 0, 6]))
+    print(con_seq([3, 8, 5, 7, 6]))

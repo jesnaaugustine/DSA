@@ -348,6 +348,51 @@ def rotate_90_2(arr):
     for i in range(r):
         arr[i] = arr[i][c-1::-1]
     return arr
+
+##########
+#Spiral Traversal of Matrix
+''' 
+Problem Statement: Given a Matrix, print the given matrix in spiral order.
+
+Examples:
+
+Example 1:
+Input: Matrix[][] = { { 1, 2, 3, 4 },
+		      { 5, 6, 7, 8 },
+		      { 9, 10, 11, 12 },
+	              { 13, 14, 15, 16 } }
+
+Outhput: 1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11, 10.
+'''
+
+
+###############
+#Count Subarray sum Equals K
+''' 
+Problem Statement: Given an array of integers and an integer k, return the total number of subarrays whose sum equals k.
+Example 1:
+Input Format: N = 4, array[] = {3, 1, 2, 4}, k = 6
+Result: 2
+Explanation: The subarrays that sum up to 6 are [3, 1, 2] and [2, 4].
+'''
+def sum_k(arr,k):
+    count =0
+    pref_dict ={}
+    c_s =0
+    for i in range(len(arr)):
+        c_s+=arr[i]
+        if c_s==k:
+            count+=1
+        rem = c_s-k
+        if rem in pref_dict:
+            count+=len(pref_dict[rem])
+        if c_s in pref_dict:
+            pref_dict[c_s].append(i)
+        else:
+            pref_dict[c_s] =[i]
+    return count
+
+
 if __name__=='__main__':
     #print(two_sum2([2,6,5,8,11],14))
     #print(count_sort([0,2,2,1,0,1,1]))
@@ -361,4 +406,5 @@ if __name__=='__main__':
     #print(leaders([10, 22, 12, 3, 0, 6]))
     #print(con_seq([3, 8, 5, 7, 6]))
     #print(set_matrix([[0,1,2,0],[3,4,5,2],[1,3,1,5]]))
-    print(rotate_90_2([[1,2,3],[4,5,6],[7,8,9]]))
+    #print(rotate_90_2([[1,2,3],[4,5,6],[7,8,9]]))
+    print(sum_k([3, 1, 2, 4],4))

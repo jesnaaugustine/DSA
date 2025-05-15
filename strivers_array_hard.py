@@ -39,6 +39,62 @@ def pascals(N):
         temp.append(1)
         DP.append(temp)
     return DP
+##########
+#Majority Elements(&gt;N/3 times) | Find the elements that appears more than N/3 times in the array
+''' 
+Example 1:
+Input Format: N = 5, array[] = {1,2,2,3,2}
+Result: 2
+Explanation: Here we can see that the Count(1) = 1, Count(2) = 3 and Count(3) = 1.Therefore, the count of 2 is greater than N/3 times. Hence, 2 is the answer.
+max no of element with count n/3 is 2
+'''
+def majority_3(arr):
+    dict ={}
+    res =[]
+    for i in arr:
+        dict[i] = dict.get(i,0)+1
+        if dict[i]==int(len(arr)/3+1):
+            res.append(i)
+        if len(res)==2:
+            break
+    return res
 
+    #res = [item[0] for item in dict.items() if item[1]>=len(arr)/3]
+    #return res
+
+##extended version of muloors voting algorithm
+def majority_3_2(arr):
+    cnt1 =0
+    cnt2 =0
+    ele1 =0
+    ele2 =0
+    for i in arr:
+        if cnt1==0 and ele2!=i:
+            cnt1 =1
+            ele1 =i
+        elif cnt2==0 and ele1!=i:
+            cnt2=1
+            ele2=i
+        elif i==ele1:
+            cnt1+=1
+        elif i==ele2:
+            cnt2+=1
+        else:
+            cnt1-=1
+            cnt2 -=1
+    res =[]
+    e1=0
+    e2=0
+    for i in arr:
+        if i==ele1:
+            e1+=1
+        elif i==ele2:
+            e2+=1
+    if e1>=int(len(arr)/3+1):
+        res.append(ele1)
+    if e2>=int(len(arr)/3+1):
+        res.append(ele2)
+    return res
 if __name__=='__main__':
-    print(pascals(5))
+    #print(pascals(5))
+    print(majority_3_2([1,2,2,3,2]))

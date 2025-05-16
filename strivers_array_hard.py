@@ -95,6 +95,49 @@ def majority_3_2(arr):
     if e2>=int(len(arr)/3+1):
         res.append(ele2)
     return res
+#######
+# 3 Sum : Find triplets that add up to a zero
+'''  
+Problem Statement: Given an array of N integers, your task is to find unique triplets that add up to give a sum of zero. In short, you need to return an array of all the unique triplets [arr[a], arr[b], arr[c]] such that i!=j, j!=k, k!=i, and their sum is equal to zero.
+Input: nums = [-1,0,1,2,-1,-4]
+
+Output: [[-1,-1,2],[-1,0,1]]
+
+Explanation: Out of all possible unique triplets possible, [-1,-1,2] and [-1,0,1] satisfy the condition of summing up to zero with i!=j!=k
+'''
+#hashing
+def sum_3(arr):
+    res =set()
+    for i in range(len(arr)):
+        temp =set()
+        for j in range(i+1,len(arr)):
+            if 0-arr[i]-arr[j] in temp:
+                x=sorted([arr[i],arr[j],(0-arr[i]-arr[j])])
+                res.add(tuple(x))
+            temp.add(arr[j])
+    result = list(res)
+    return result
+#method 2 - two pointers
+def sum_3_two(arr):
+    s_arr =sorted(arr)
+    res =set()
+    for i in range(len(s_arr)):
+        l = i+1
+        r = len(arr)-1
+        while l<r:
+            if s_arr[i]+s_arr[l]+s_arr[r]==0:
+                x = [s_arr[i],s_arr[l],s_arr[r]]
+                res.add(tuple(x))
+                l+=1
+                r-=1
+            elif s_arr[i]+s_arr[l]+s_arr[r]<0:
+                l+=1
+            else:
+                r-=1
+    return list(res)
+            
+
 if __name__=='__main__':
     #print(pascals(5))
-    print(majority_3_2([1,2,2,3,2]))
+    #print(majority_3_2([1,2,2,3,2]))
+    print(sum_3_two([-1,0,1,2,-1,-4]))

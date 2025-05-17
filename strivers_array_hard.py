@@ -136,8 +136,35 @@ def sum_3_two(arr):
                 r-=1
     return list(res)
             
+##########
+#4 sum
+''' 
+Problem Statement: Given an array of N integers, your task is to find unique quads that add up to give a target value. In short, you need to return an array of all the unique quadruplets [arr[a], arr[b], arr[c], arr[d]] such that their sum is equal to a given target.
+
+'''
+def sum_4(arr,k):
+    arr = sorted(arr)
+    res = set()
+    for i in range(len(arr)):
+        for j in range(i+1,len(arr)):
+            l =j+1
+            r = len(arr)-1
+            while l<r:
+                rem = k-arr[i]-arr[j]
+                if arr[l]+arr[r]==rem:
+                    res.add(tuple([arr[i],arr[j],arr[l],arr[r]]))
+                    l+=1
+                    r-=1
+                elif arr[l]+arr[r]<rem:
+                    l+=1
+                else:
+                    r-=1
+    return list(res)
+                
+
 
 if __name__=='__main__':
     #print(pascals(5))
     #print(majority_3_2([1,2,2,3,2]))
-    print(sum_3_two([-1,0,1,2,-1,-4]))
+    #print(sum_3_two([-1,0,1,2,-1,-4]))
+    print(sum_4([1,0,-1,0,-2,2],0))

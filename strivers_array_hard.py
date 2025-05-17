@@ -186,11 +186,60 @@ def lon_sub(arr):
         dict[cur_sum] = min(dict.get(cur_sum,i),i)
     return max_l
 
+#######
+#Count the number of subarrays with given xor K
 
+''' 
+Problem Statement: Given an array of integers A and an integer B. Find the total number of subarrays having bitwise XOR of all elements equal to k.
+Input Format: A = [4, 2, 2, 6, 4] , k = 6
+Result: 4
+Explanation: The subarrays having XOR of their elements as 6 are  [4, 2], [4, 2, 2, 6, 4], [2, 2, 6], [6]
+'''
+def xor_sub(arr,k):
+    cur =0
+    dict={}
+    max_c =0
+    for i in range(len(arr)):
+        cur = cur^arr[i]
+        if cur==k:
+            max_c+=1
+        rem = cur^k
+        if rem in dict:
+            max_c+=dict[rem]
+        dict[cur]=dict.get(cur,0)+1
+    return max_c
+
+##########
+#Merge Overlapping Sub-intervals
+''' 
+Problem Statement: Given an array of intervals, merge all the overlapping intervals and return an array of non-overlapping intervals.
+Input: intervals=[[1,3],[2,6],[8,10],[15,18]]
+
+Output: [[1,6],[8,10],[15,18]]
+
+Explanation: Since intervals [1,3] and [2,6] are overlapping we can merge them to form [1,6]
+ intervals.
+'''
+def merge_int(arr):
+    arr =sorted(arr,key = lambda x:x[0])
+    l = arr[0][0]
+    r =arr[0][1]
+    res =[]
+    for i in range(1,len(arr)):
+        if arr[i][0]<=r:
+            r=max(r,arr[i][1])
+        else:
+            res.append([l,r])
+            l=arr[i][0]
+            r =arr[i][1]
+    res.append([l,r])
+    return res
 
 if __name__=='__main__':
     #print(pascals(5))
     #print(majority_3_2([1,2,2,3,2]))
     #print(sum_3_two([-1,0,1,2,-1,-4]))
     #print(sum_4([1,0,-1,0,-2,2],0))
-    print(lon_sub([9, -3, 3, -1, 6, -5]))
+    #print(lon_sub([9, -3, 3, -1, 6, -5]))
+    #print(xor_sub([4, 2, 2, 6, 4],6))
+    print(merge_int( [[1,7],[2,6],[8,10],[15,18]]))

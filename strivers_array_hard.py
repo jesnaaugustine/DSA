@@ -161,10 +161,36 @@ def sum_4(arr,k):
                     r-=1
     return list(res)
                 
+########
+#Length of the longest subarray with zero Sum
+'''  
+Problem Statement: Given an array containing both positive and negative integers, we have to find the length of the longest subarray with the sum of all elements equal to zero.
+Input Format: N = 6, array[] = {9, -3, 3, -1, 6, -5}
+Result: 5
+Explanation: The following subarrays sum to zero:
+{-3, 3} , {-1, 6, -5}, {-3, 3, -1, 6, -5}
+Since we require the length of the longest subarray, our answer is 5!
+
+'''
+def lon_sub(arr):
+    max_l = 0
+    cur_sum =0
+    dict ={}
+    for i in range(len(arr)):
+        cur_sum+=arr[i]
+        if cur_sum==0:
+            max_l= max(max_l,i+1)
+        rem = cur_sum-0
+        if rem in dict:
+            max_l=max(max_l,i-dict[cur_sum])
+        dict[cur_sum] = min(dict.get(cur_sum,i),i)
+    return max_l
+
 
 
 if __name__=='__main__':
     #print(pascals(5))
     #print(majority_3_2([1,2,2,3,2]))
     #print(sum_3_two([-1,0,1,2,-1,-4]))
-    print(sum_4([1,0,-1,0,-2,2],0))
+    #print(sum_4([1,0,-1,0,-2,2],0))
+    print(lon_sub([9, -3, 3, -1, 6, -5]))

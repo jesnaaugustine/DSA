@@ -234,6 +234,54 @@ def merge_int(arr):
             r =arr[i][1]
     res.append([l,r])
     return res
+#######
+#Merge two Sorted Arrays Without Extra Space
+''' 
+Problem statement: Given two sorted arrays arr1[] and arr2[] of sizes n and m in non-decreasing order. Merge them in sorted order. Modify arr1 so that it contains the first N elements and modify arr2 so that it contains the last M elements.
+Example 1:
+
+Input: 
+n = 4, arr1[] = [1 4 8 10] 
+m = 5, arr2[] = [2 3 9]
+
+Output: 
+arr1[] = [1 2 3 4]
+arr2[] = [8 9 10]
+
+'''
+#with extra array
+def merge_array(arr1,arr2):
+    res =[]
+    l =0
+    r =0
+    while l<len(arr1) and r<len(arr2):
+        if arr1[l]<arr2[r]:
+            res.append(arr1[l])
+            l+=1
+        else:
+            res.append(arr2[r])
+            r+=1
+    if l!= len(arr1):
+        res.extend(arr1[l:])
+    if r!= len(arr2):
+        res.extend(arr2[r:])
+    arr1 = res[:len(arr1)]
+    arr2 =res[len(arr1):]
+    return arr1,arr2
+
+#without extra space
+def merge_array_1(arr1,arr2):
+    m = len(arr1)-1
+    n =0
+    con=True
+    while con:
+        if arr1[m]>arr2[n]:
+            arr1[m],arr2[n]=arr2[n],arr1[m]
+            m-=1
+            n+=1
+        else:
+            con =False
+    return sorted(arr1),sorted(arr2)
 
 if __name__=='__main__':
     #print(pascals(5))
@@ -242,4 +290,5 @@ if __name__=='__main__':
     #print(sum_4([1,0,-1,0,-2,2],0))
     #print(lon_sub([9, -3, 3, -1, 6, -5]))
     #print(xor_sub([4, 2, 2, 6, 4],6))
-    print(merge_int( [[1,7],[2,6],[8,10],[15,18]]))
+    #print(merge_int( [[1,7],[2,6],[8,10],[15,18]]))
+    print(merge_array_1([1 ,4 ,8 ,10],[2, 3 ,9]))

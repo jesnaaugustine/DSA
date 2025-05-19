@@ -287,6 +287,12 @@ def merge_array_1(arr1,arr2):
 ''' 
 Problem Statement: You are given a read-only array of N integers with values also in the range [1, N] both inclusive. 
 Each integer appears exactly once except A which appears twice and B which is missing. The task is to find the repeating and missing numbers A and B where A repeats twice and B is missing.
+
+approch:
+First, find out the values of S and Sn and then calculate S - Sn (Using the above formulas).
+Then, find out the values of S2(sum of squre of n elements) and S2n and then calculate S2 - S2n.
+After performing steps 1 and 2, we will be having the values of X + Y and X - Y. Now, by substitution of values, we can easily find the values of X and Y.
+https://takeuforward.org/data-structure/find-the-repeating-and-missing-numbers/
 '''
 def miss_extra(arr):
     n = len(arr)

@@ -282,7 +282,25 @@ def merge_array_1(arr1,arr2):
         else:
             con =False
     return sorted(arr1),sorted(arr2)
-
+#######
+#Find the repeating and missing numbers
+''' 
+Problem Statement: You are given a read-only array of N integers with values also in the range [1, N] both inclusive. 
+Each integer appears exactly once except A which appears twice and B which is missing. The task is to find the repeating and missing numbers A and B where A repeats twice and B is missing.
+'''
+def miss_extra(arr):
+    n = len(arr)
+    a_sum = n*(n+1)/2
+    r_sum = sum(arr)
+    s = set()
+    for i in arr:
+        if i in s:
+            A =i
+            break
+        else:
+            s.add(i)
+    B = int(A+(a_sum-r_sum)) 
+    return A,B
 if __name__=='__main__':
     #print(pascals(5))
     #print(majority_3_2([1,2,2,3,2]))
@@ -291,4 +309,5 @@ if __name__=='__main__':
     #print(lon_sub([9, -3, 3, -1, 6, -5]))
     #print(xor_sub([4, 2, 2, 6, 4],6))
     #print(merge_int( [[1,7],[2,6],[8,10],[15,18]]))
-    print(merge_array_1([1 ,4 ,8 ,10],[2, 3 ,9]))
+    #print(merge_array_1([1 ,4 ,8 ,10],[2, 3 ,9]))
+    print(miss_extra([3,1,2,5,4,6,7,5]))

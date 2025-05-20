@@ -224,6 +224,28 @@ def log_sub_arr_prefix(arr,k):
             max_len = max(max_len,i-dict[rem])
         dict[c_sum] = min(i,dict.get(c_sum,float('inf')))
     return max_len
+#####
+#Maximum Product Subarray in an Array
+''' 
+Problem Statement: Given an array that contains both negative and positive integers, find the maximum product subarray.
+Input:
+ Nums = [1,2,-3,0,-4,-5]
+Output:
+ 20
+'''
+def max_prod(arr):
+    max_p= float('-inf')
+    prefix =1
+    sufix =1
+    for i in range(len(arr)):
+        prefix *= arr[i]
+        sufix *=arr[len(arr)-1-i]
+        max_p= max(prefix,sufix,max_p)
+        if prefix==0:
+            prefix=1
+        if sufix ==0:
+            sufix=1
+    return max_p
 
 
 if __name__=='__main__':
@@ -234,4 +256,5 @@ if __name__=='__main__':
     #print(missing_number2([1,2,3,5],5))
     #print(consecutive_one([0,1,1,0]))
     #print(one_number1([1,1,2,2,3,3,4,4,5]))
-    print(log_sub_arr_prefix([2,0,0,1,3],3))
+    #print(log_sub_arr_prefix([2,0,0,1,3],3))
+    print(max_prod([1,2,-3,0,-4,-5]))

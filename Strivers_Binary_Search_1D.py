@@ -42,7 +42,36 @@ def lower_bound(arr,k):
             ans = min(ans,mid)
             r=mid-1
     return ans
+#######
+#Implement Upper Bound
+''' 
+Problem Statement: Given a sorted array of N integers and an integer x, write a program to find the upper bound of x
+Example 1:
+Input Format: N = 4, arr[] = {1,2,2,3}, x = 2
+Result: 3
+Explanation: Index 3 is the smallest index such that arr[3] > x.
+
+Example 2:
+Input Format: N = 6, arr[] = {3,5,8,9,15,19}, x = 9
+Result: 4
+Explanation: Index 4 is the smallest index such that arr[4] > x.
+
+'''
+
+def upper_bound(arr,k):
+    l =0
+    r = len(arr)-1
+    ans = len(arr)
+    while l<=r:
+        m = (l+r)//2
+        if arr[m]<=k:
+            l+=1
+        else:
+            ans = min(ans,m)
+            r-=1
+    return ans
 
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
-    print(lower_bound([1,2,2,3],2))
+    #print(lower_bound([1,2,2,3],2))
+    print(upper_bound([1,2,2,3],2))

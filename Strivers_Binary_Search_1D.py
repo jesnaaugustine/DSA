@@ -101,8 +101,47 @@ def insert_index(arr,k):
             ans=min(m,ans)
             r=m-1
     return ans
+
+#########
+#Floor and Ceil in Sorted Array
+'''  
+Problem Statement: You're given an sorted array arr of n integers and an integer x. Find the floor and ceiling of x in arr[0..n-1].
+The floor of x is the largest element in the array which is smaller than or equal to x.
+The ceiling of x is the smallest element in the array greater than or equal to x.
+Example 1:
+Input Format: n = 6, arr[] ={3, 4, 4, 7, 8, 10}, x= 5
+Result: 4 7
+Explanation: The floor of 5 in the array is 4, and the ceiling of 5 in the array is 7.
+
+Example 2:
+Input Format: n = 6, arr[] ={3, 4, 4, 7, 8, 10}, x= 8
+Result: 8 8
+Explanation: The floor of 8 in the array is 8, and the ceiling of 8 in the array is also 8.
+
+
+'''
+def floor_ceil(arr,k):
+    f = 0
+    c =len(arr)-1
+    l =0
+    r = len(arr)-1
+    while l<=r:
+        m =(l+r)//2
+        if arr[m]<k:
+            f = max(f,m)
+            l=m+1
+        elif arr[m]>k:
+            c = min(c,m)
+            r =m-1
+        else:
+            f = m
+            c =m
+            return arr[f],arr[c]
+    return arr[f],arr[c]
+        
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
     #print(lower_bound([1,2,2,3],2))
     #print(upper_bound([1,2,2,3],2))
-    print(insert_index([1,2,4,7],0))
+    #print(insert_index([1,2,4,7],0))
+    print(floor_ceil([3, 4, 4, 7, 8, 10],8))

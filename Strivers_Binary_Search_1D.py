@@ -70,8 +70,39 @@ def upper_bound(arr,k):
             ans = min(ans,m)
             r-=1
     return ans
+########
+#Search Insert Position
+'''  
+Problem Statement: You are given a sorted array arr of distinct values and a target value x. You need to search for the index of the target value in the array.
 
+If the value is present in the array, then return its index. Otherwise, determine the index where it would be inserted in the array while maintaining the sorted order.
+xample 1:
+Input Format: arr[] = {1,2,4,7}, x = 6
+Result: 3
+Explanation: 6 is not present in the array. So, if we will insert 6 in the 3rd index(0-based indexing), the array will still be sorted. {1,2,4,6,7}.
+
+Example 2:
+Input Format: arr[] = {1,2,4,7}, x = 2
+Result: 1
+Explanation: 2 is present in the array and so we will return its index i.e. 1.
+
+'''
+def insert_index(arr,k):
+    l =0
+    r = len(arr)-1
+    ans = len(arr)
+    while l<=r:
+        m = (l+r)//2
+        if arr[m]==k:
+            return m
+        elif arr[m]<k:
+            l=m+1
+        else:
+            ans=min(m,ans)
+            r=m-1
+    return ans
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
     #print(lower_bound([1,2,2,3],2))
-    print(upper_bound([1,2,2,3],2))
+    #print(upper_bound([1,2,2,3],2))
+    print(insert_index([1,2,4,7],0))

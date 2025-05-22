@@ -190,6 +190,30 @@ def count_occ(arr,k):
         else:
             l =m-1
     return count
+######
+#Search Element in a Rotated Sorted Array
+'''  
+Problem Statement: Given an integer array arr of size N, sorted in ascending order (with distinct values) and a target value k. Now the array is rotated at some pivot point unknown to you. Find the index at which k is present and if k is not present return -1
+
+'''
+def search_rotated(arr,k):
+    l =0
+    r = len(arr)-1
+    while l<=r:
+        m =(l+r)//2
+        if arr[m]==k:
+            return m
+        elif m!=0 and m!=len(arr)-1 and arr[m]>arr[m-1] and arr[m]>arr[m+1]:
+            if arr[l]<=k<=arr[m-1]:
+                r = m-1
+            else:
+                l =m+1
+        elif arr[m]>k:
+            r =m-1
+        elif arr[m]<k:
+            l=m+1
+    return -1
+
 
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
@@ -198,4 +222,5 @@ if __name__=='__main__':
     #print(insert_index([1,2,4,7],0))
     #print(floor_ceil([3, 4, 4, 7, 8, 10],8))
     #print(last_occ([3,4,13,13,13,20,40],40))
-    print(count_occ([2, 2 , 3 , 3 , 3 , 3 , 4],2))
+    #print(count_occ([2, 2 , 3 , 3 , 3 , 3 , 4],2))
+    print(search_rotated([4,5,6,7,0,1,2,3],4))

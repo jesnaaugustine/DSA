@@ -158,10 +158,44 @@ def last_occ(arr,k):
         else:
             l = m-1
     return ans
+
+#######
+#Count Occurrences in Sorted Array
+''' 
+Problem Statement: You are given a sorted array containing N integers and a number X, you have to find the occurrences of X in the given array.
+Example 1:
+Input: N = 7,  X = 3 , array[] = {2, 2 , 3 , 3 , 3 , 3 , 4}
+Output: 4
+Explanation: 3 is occurring 4 times in 
+the given array so it is our answer.
+
+'''
+def count_occ(arr,k):
+    count =0
+    s =0
+    l = len(arr)-1
+    while s<=l:
+        m =(s+l)//2
+        if arr[m]==k:
+            while m>=0 and arr[m]==k:
+                m-=1
+                count+=1
+            m =m+count
+            while m<len(arr) and arr[m]==k :
+                m+=1
+                count+=1
+            return count-1
+        elif arr[m]<k:
+            s =m+1
+        else:
+            l =m-1
+    return count
+
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
     #print(lower_bound([1,2,2,3],2))
     #print(upper_bound([1,2,2,3],2))
     #print(insert_index([1,2,4,7],0))
     #print(floor_ceil([3, 4, 4, 7, 8, 10],8))
-    print(last_occ([3,4,13,13,13,20,40],40))
+    #print(last_occ([3,4,13,13,13,20,40],40))
+    print(count_occ([2, 2 , 3 , 3 , 3 , 3 , 4],2))

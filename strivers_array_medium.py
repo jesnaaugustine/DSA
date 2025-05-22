@@ -256,7 +256,8 @@ def next_per(arr):
 #######
 #Leaders in an Array
 ''' 
-Problem Statement: Given an array, print all the elements which are leaders. A Leader is an element that is greater than all of the elements on its right side in the array.
+Problem Statement: Given an array, print all the elements which are leaders. A Leader is an element that is greater than all of the elements on its 
+right side in the array.
 Input:
  arr = [10, 22, 12, 3, 0, 6]
 Output:
@@ -275,7 +276,8 @@ def leaders(arr):
 ############
 #Longest Consecutive Sequence in an Array
 ''' 
-Problem Statement: You are given an array of ‘N’ integers. You need to find the length of the longest sequence which contains the consecutive elements.
+Problem Statement: You are given an array of ‘N’ integers. You need to find the length of the longest sequence which contains 
+the consecutive elements.
 
 Input: [3, 8, 5, 7, 6]
 

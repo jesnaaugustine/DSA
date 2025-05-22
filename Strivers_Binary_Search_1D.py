@@ -138,10 +138,30 @@ def floor_ceil(arr,k):
             c =m
             return arr[f],arr[c]
     return arr[f],arr[c]
-        
+##########
+#Last occurrence in a sorted array
+''' 
+Given a sorted array of N integers, write a program to find the index of the last occurrence of the target key. If the target is not found then return -1.
+
+'''
+def last_occ(arr,k):
+    ans = -1
+    s =0
+    l =len(arr)-1
+    while s<=l:
+        m =(s+l)//2
+        if arr[m]==k:
+            ans = max(ans,m)
+            s=m+1
+        elif arr[m]<k:
+            s =m+1
+        else:
+            l = m-1
+    return ans
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
     #print(lower_bound([1,2,2,3],2))
     #print(upper_bound([1,2,2,3],2))
     #print(insert_index([1,2,4,7],0))
-    print(floor_ceil([3, 4, 4, 7, 8, 10],8))
+    #print(floor_ceil([3, 4, 4, 7, 8, 10],8))
+    print(last_occ([3,4,13,13,13,20,40],40))

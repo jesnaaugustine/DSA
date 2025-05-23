@@ -242,9 +242,57 @@ def bs_rotated(arr,k):
             else:
                 r =m-1
     return False
+########
+#Minimum in Rotated Sorted Array
+
+'''  
+Example 1:
+Input Format: arr = [4,5,6,7,0,1,2,3]
+Result: 0
+Explanation: Here, the element 0 is the minimum element in the array.
+
+'''
+def min_rotated(arr):
+    l =0
+    r =len(arr)-1
+    g_min =float('inf')
+    while l<=r:
+        m = (l+r)//2
+        if arr[l]<=arr[m]:
+            g_min = min(arr[l],g_min)
+            l =m+1
+        else:
+            g_min = min(g_min,arr[m])
+            r=m-1
+    return g_min
+#######
+#Find out how many times the array has been rotat
+'''  
+Example 1:
+Input Format: arr = [4,5,6,7,0,1,2,3]
+Result: 4
+Explanation: The original array should be [0,1,2,3,4,5,6,7]. So, we can notice that the array has been rotated 4 times.
 
 
-
+'''
+def rotation_count(arr):
+    l =0
+    r =len(arr)-1
+    g_min = float('inf')
+    g_count = 0
+    while l<=r:
+        m =(l+r)//2
+        if arr[l]<=arr[m]:
+            if arr[l]<g_min:
+                g_min = arr[l]
+                g_count =max(g_count,l)
+            l =m+1
+        else:
+            if arr[m]<g_min:
+                g_min = arr[m]
+                g_count = max(g_count,m)
+            r=m-1
+    return g_count
 
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
@@ -255,4 +303,6 @@ if __name__=='__main__':
     #print(last_occ([3,4,13,13,13,20,40],40))
     #print(count_occ([2, 2 , 3 , 3 , 3 , 3 , 4],2))
     #print(search_rotated([4,5,6,7,0,1,2,3],4))
-    print(bs_rotated([7, 8, 1, 3, 3, 3, 4, 5, 6],2))
+    #print(bs_rotated([7, 8, 1, 3, 3, 3, 4, 5, 6],2))
+    #print(min_rotated([4,5,6,7,0,1,2,3,3]))
+    print(rotation_count([3,4,5,6,7,0,1,2,3]))

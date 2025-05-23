@@ -213,6 +213,37 @@ def search_rotated(arr,k):
         elif arr[m]<k:
             l=m+1
     return -1
+##########
+#Search Element in Rotated Sorted Array II
+'''  
+Problem Statement: Given an integer array arr of size N, sorted in ascending order (may contain duplicate values) and a target value k. Now the array is rotated at some pivot point unknown to you. Return True if k is present and otherwise, return False. 
+Example 1:
+Input Format: arr = [7, 8, 1, 2, 3, 3, 3, 4, 5, 6], k = 3
+Result: True
+Explanation: The element 3 is present in the array. So, the answer is True.
+
+
+'''
+def bs_rotated(arr,k):
+    l =0
+    r = len(arr)-1
+    while l<=r:
+        m =(l+r)//2
+        if arr[m]==k:
+            return True
+        elif arr[l]<=arr[m]:
+            if arr[l]<=k and k<=arr[m]:
+                r =m-1
+            else:
+                l = m+1
+        else:
+            if arr[m]<=k and k<=arr[r]:
+                l=m+1
+            else:
+                r =m-1
+    return False
+
+
 
 
 if __name__=='__main__':
@@ -223,4 +254,5 @@ if __name__=='__main__':
     #print(floor_ceil([3, 4, 4, 7, 8, 10],8))
     #print(last_occ([3,4,13,13,13,20,40],40))
     #print(count_occ([2, 2 , 3 , 3 , 3 , 3 , 4],2))
-    print(search_rotated([4,5,6,7,0,1,2,3],4))
+    #print(search_rotated([4,5,6,7,0,1,2,3],4))
+    print(bs_rotated([7, 8, 1, 3, 3, 3, 4, 5, 6],2))

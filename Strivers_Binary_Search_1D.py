@@ -315,6 +315,27 @@ def single_ele(arr):
             r = m-1
     return -1
 
+#########
+#Finding Sqrt of a number using Binary Search
+'''  
+Problem Statement: You are given a positive integer n. Your task is to find and return its square root. 
+If ‘n’ is not a perfect square, then return the floor value of 'sqrt(n)'.
+
+'''
+def sqrt(n):
+    l =0
+    r =n
+    ans =0
+    while l<=r:
+        m =(l+r)//2
+        if m*m <=n:
+            ans = max(ans,m)
+            l=m+1
+
+        else:
+            r =m-1
+    return ans
+
 
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
@@ -329,4 +350,5 @@ if __name__=='__main__':
     #print(min_rotated([4,5,6,7,0,1,2,3,3]))
     #print(rotation_count([3,4,5,6,7,0,1,2,3]))
 
-    print(single_ele([1,2,2,3,3,4,4,5,5,6,6]))
+    #print(single_ele([1,2,2,3,3,4,4,5,5,6,6]))
+    print(sqrt(36))

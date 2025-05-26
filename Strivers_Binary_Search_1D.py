@@ -293,6 +293,28 @@ def rotation_count(arr):
                 g_count = max(g_count,m)
             r=m-1
     return g_count
+#######
+#Search Single Element in a sorted array
+'''  
+Input Format: arr[] = {1,1,2,2,3,3,4,5,5,6,6}
+Result: 4
+Explanation: Only the number 4 appears once in the array.
+
+'''
+
+def single_ele(arr):
+    l =0
+    r =len(arr)-1
+    while l<=r:
+        m =(l+r)//2
+        if arr[m]!=arr[m-1] and arr[m]!=arr[m+1]:
+            return arr[m]
+        elif (m%2==0 and arr[m+1]==arr[m]) or (m%2==1 and arr[m]==arr[m-1]):
+            l = m+1
+        else:
+            r = m-1
+    return -1
+
 
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
@@ -305,4 +327,6 @@ if __name__=='__main__':
     #print(search_rotated([4,5,6,7,0,1,2,3],4))
     #print(bs_rotated([7, 8, 1, 3, 3, 3, 4, 5, 6],2))
     #print(min_rotated([4,5,6,7,0,1,2,3,3]))
-    print(rotation_count([3,4,5,6,7,0,1,2,3]))
+    #print(rotation_count([3,4,5,6,7,0,1,2,3]))
+
+    print(single_ele([1,2,2,3,3,4,4,5,5,6,6]))

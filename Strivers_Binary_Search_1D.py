@@ -336,6 +336,64 @@ def sqrt(n):
             r =m-1
     return ans
 
+###########
+#Koko Eating Bananas
+'''  
+roblem Statement: A monkey is given ‘n’ piles of bananas, whereas the 'ith' pile has ‘a[i]’ bananas. An integer ‘h’ is also given, which denotes the time (in hours) for all the bananas to be eaten.
+
+Each hour, the monkey chooses a non-empty pile of bananas and eats ‘k’ bananas. If the pile contains less than ‘k’ bananas, then the monkey consumes all the bananas and won’t eat any more bananas in that hour.
+
+Find the minimum number of bananas ‘k’ to eat per hour so that the monkey can eat all the bananas within ‘h’ hours.
+
+Example 1:
+Input Format: N = 4, a[] = {7, 15, 6, 3}, h = 8
+Result: 5
+Explanation: If Koko eats 5 bananas/hr, he will take 2, 3, 2, and 1 hour to eat the piles accordingly. So, he will take 8 hours to complete all the piles.  
+
+Example 2:
+Input Format: N = 5, a[] = {25, 12, 8, 14, 19}, h = 5
+Result: 25
+Explanation: If Koko eats 25 bananas/hr, he will take 1, 1, 1, 1, and 1 hour to eat the piles accordingly. So, he will take 5 hours to complete all the piles.
+
+'''
+#brute force
+import math
+def koko_eating(arr,h):
+    if len(arr)>h:
+        return -1
+    #min bananas eating =1 and max can be max(arr)
+    ans = max(arr)
+    for i in range(1,max(arr)+1):
+        cur =0
+        for a in arr:
+            cur+=math.ceil(a/i)
+        if cur <=h:
+            return i
+    return -1
+
+#using binary search: search range is from 1 to max(arr). If hour to each for mid no of bananas eating hour less than h r=mid -1
+#else l = mod +1
+def hourtaken(arr,k):
+    cur =0
+    for a in arr:
+        cur+=math.ceil(a/k)
+    return cur
+def kok_eating_bs(arr,h):
+    ans =max(arr)
+    if len(arr)>h:
+        return -1
+    l =1
+    r = max(arr)
+    while l<=r:
+        mid =(l+r)//2
+        localh = hourtaken(arr,mid)
+        if localh<=h:
+            ans = min(ans,mid)
+            r = mid-1
+        else:
+            l = mid+1
+    return ans
+
 
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
@@ -351,4 +409,5 @@ if __name__=='__main__':
     #print(rotation_count([3,4,5,6,7,0,1,2,3]))
 
     #print(single_ele([1,2,2,3,3,4,4,5,5,6,6]))
-    print(sqrt(36))
+    #print(sqrt(36))
+    print(kok_eating_bs([7, 15, 6, 3],8))

@@ -393,6 +393,76 @@ def kok_eating_bs(arr,h):
         else:
             l = mid+1
     return ans
+def minEatingSpeed(piles, h):
+    """
+    :type piles: List[int]
+    :type h: int
+    :rtype: int
+    """
+    ans =max(piles)
+    if len(piles)>h:
+        return -1
+    l =1
+    r = max(piles)
+    while l<=r:
+        mid =(l+r)//2
+        cur =0
+        for a in piles:
+            cur+=math.ceil(a/mid)
+        localh =cur
+        if localh<=h:
+            ans = min(ans,mid)
+            r = mid-1
+        else:
+            l = mid+1
+    return ans
+##########
+#Minimum days to make M bouquets
+'''  
+Problem Statement: You are given 'N’ roses and you are also given an array 'arr'  where 'arr[i]'  denotes that the 'ith' rose will bloom on the 'arr[i]th' day.
+You can only pick already bloomed roses that are adjacent to make a bouquet. You are also told that you require exactly 'k' adjacent bloomed roses to make a single bouquet.
+Find the minimum number of days required to make at least ‘m' bouquets each containing 'k' roses. Return -1 if it is not possible.
+
+Example 1:
+Input Format: N = 8, arr[] = {7, 7, 7, 7, 13, 11, 12, 7}, m = 2, k = 3
+Result: 12
+Explanation: On the 12th the first 4 flowers and the last 3 flowers would have already bloomed. So, we can easily make 2 bouquets, one with the first 3 and another with the last 3 flowers.
+
+'''
+def check_required(arr,k):
+    cur_s =0
+    total =0
+    for i in arr:
+        if i ==1:
+            cur_s+=1
+        else:
+            total +=cur_s//k
+            cur_s =0
+    total +=cur_s//k
+    return total
+def bouquet_make(arr,m,k):
+    l = min(arr)
+    r = max(arr)
+    if m*k>len(arr):
+        return -1
+    while l<=r:
+        mid = (l+r)//2
+        new_arr =[]
+        for i in range(len(arr)):
+            if arr[i]<=mid:
+                new_arr.append(1)
+            else:
+                new_arr.append(0)
+        total = check_required(new_arr,k)
+        if total <m:
+            l =mid+1
+        elif total>m:
+            r =mid-1
+        else:
+            return mid
+    return -1
+
+
 
 
 if __name__=='__main__':
@@ -410,4 +480,5 @@ if __name__=='__main__':
 
     #print(single_ele([1,2,2,3,3,4,4,5,5,6,6]))
     #print(sqrt(36))
-    print(kok_eating_bs([7, 15, 6, 3],8))
+    #print(minEatingSpeed([30,11,23,4,20],6))
+    print(bouquet_make([1, 10, 3, 10, 2],2,3))

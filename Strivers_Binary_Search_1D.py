@@ -534,6 +534,41 @@ def min_capacity(arr,d):
             ans = min(ans,mid)
             r = mid-1
     return ans
+###########
+#Kth Missing Positive Number
+
+'''  
+Problem Statement: You are given a strictly increasing array ‘vec’ and a positive integer 'k'. Find the 'kth' positive integer missing from 'vec'.
+
+Example 1:
+Input Format: vec[]={4,7,9,10}, k = 1
+Result: 1
+Explanation: The missing numbers are 1, 2, 3, 5, 6, 8, 11, 12, ……, and so on. Since 'k' is 1, the first missing element is 1.
+Example 2:
+Input Format: vec[]={4,7,9,10}, k = 4
+Result: 5
+Explanation: The missing numbers are 1, 2, 3, 5, 6, 8, 11, 12, ……, and so on. Since 'k' is 4, the fourth missing element is 5.
+'''
+#Brute force
+def missing_number(arr,k):
+    prev =0
+    cur_missing =0
+    for a in arr:
+        temp =cur_missing +a-prev-1
+        if temp<k:
+            cur_missing =temp
+            prev = a
+        else:
+            ans = prev+k-cur_missing
+            return ans
+    return -1
+def missingK(vec, n, k):
+    for i in range(n):
+        if vec[i] <= k:
+            k += 1  # shifting k
+        else:
+            break
+    return k
 
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
@@ -553,4 +588,5 @@ if __name__=='__main__':
     #print(minEatingSpeed([30,11,23,4,20],6))
     #print(bouquet_make([1, 10, 3, 10, 2],2,3))
     #print(smallest_divisor([8,4,2,3],10))
-    print(min_capacity([1,2,3,4,5,6,7,8,9,10],1))
+    #print(min_capacity([1,2,3,4,5,6,7,8,9,10],1))
+    print(missingK([4,7,9,10],4,5))

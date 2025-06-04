@@ -490,7 +490,50 @@ def smallest_divisor(arr,limit):
             result =min(result,mid)
             r=mid-1
     return result
-        
+##############
+#Capacity to Ship Packages within D Days
+'''  
+Problem Statement: You are the owner of a Shipment company. You use conveyor belts to ship packages from one port to another. The packages must be shipped within 'd' days.
+The weights of the packages are given in an array 'of weights'. The packages are loaded on the conveyor belts every day in the same order as they appear in the array. The loaded weights must not exceed the maximum weight capacity of the ship.
+Find out the least-weight capacity so that you can ship all the packages within 'd' days.
+
+Example 1:
+Input Format: N = 5, weights[] = {5,4,5,2,3,4,5,6}, d = 5
+Result: 9
+Explanation: If the ship capacity is 9, the shipment will be done in the following manner:
+Day         Weights            Total
+1        -       5, 4          -        9
+2        -       5, 2          -        7
+3        -       3, 4          -        7
+4        -       5              -        5
+5        -       6              -        6
+So, the least capacity should be 9.
+'''      
+def days_check(arr,c):
+    cur_c =0
+    day =1
+    for i in arr:
+        cur_c +=i
+        if cur_c ==c:
+            day +=1
+            cur_c =0
+        elif cur_c>c:
+            day+=1
+            cur_c =i
+    return day
+def min_capacity(arr,d):
+    l = max(arr)
+    r = sum(arr)
+    ans = sum(arr)
+    while l<=r:
+        mid = (l+r)//2
+        day = days_check(arr,mid)
+        if day>d:
+            l = mid+1
+        else:
+            ans = min(ans,mid)
+            r = mid-1
+    return ans
 
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
@@ -509,4 +552,5 @@ if __name__=='__main__':
     #print(sqrt(36))
     #print(minEatingSpeed([30,11,23,4,20],6))
     #print(bouquet_make([1, 10, 3, 10, 2],2,3))
-    print(smallest_divisor([8,4,2,3],10))
+    #print(smallest_divisor([8,4,2,3],10))
+    print(min_capacity([1,2,3,4,5,6,7,8,9,10],1))

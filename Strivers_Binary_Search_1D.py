@@ -562,14 +562,63 @@ def missing_number(arr,k):
             ans = prev+k-cur_missing
             return ans
     return -1
-def missingK(vec, n, k):
+def missingK1(vec, n, k):
     for i in range(n):
         if vec[i] <= k:
             k += 1  # shifting k
         else:
             break
     return k
+######Binary search
+def missingK(vec, n, k):
+    low = 0
+    high = n - 1
+    while low <= high:
+        mid = (low + high) // 2
+        missing = vec[mid] - (mid + 1)
+        if missing < k:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return k + high + 1
 
+############
+#Find the row with maximum number of 1's
+'''  
+Problem Statement: You have been given a non-empty grid ‘mat’ with 'n' rows and 'm' columns consisting of only 0s and 1s. All the rows are sorted in ascending order.
+Your task is to find the index of the row with the maximum number of ones.
+Note: If two rows have the same number of ones, consider the one with a smaller index. If there's no row with at least 1 zero, return -1.
+
+Input Format: n = 3, m = 3, 
+mat[] = 
+1 1 1
+0 0 1
+0 0 0
+Result: 0
+Explanation: The row with the maximum number of ones is 0 (0 - indexed).
+
+'''
+def max_ones(arr):
+    n  =len(arr)
+    m =len(arr[0])
+    max_cnt = 0
+    max_idx =-1
+    for i in range(n):
+        l =0
+        r = m-1
+        temp = m
+        while l<=r:
+            mid =(l+r)//2
+            if arr[i][mid]==1:
+                r=mid-1
+                temp =min(temp,mid)
+            else:
+                l =mid+1
+        if max_cnt<m-temp:
+            max_cnt = m-temp
+            max_idx = i
+    return max_idx
+            
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
     #print(lower_bound([1,2,2,3],2))
@@ -589,4 +638,5 @@ if __name__=='__main__':
     #print(bouquet_make([1, 10, 3, 10, 2],2,3))
     #print(smallest_divisor([8,4,2,3],10))
     #print(min_capacity([1,2,3,4,5,6,7,8,9,10],1))
-    print(missingK([4,7,9,10],4,5))
+    #print(missingK([4,7,9,10],4,5))
+    print(max_ones([[0,0,0,0]]))

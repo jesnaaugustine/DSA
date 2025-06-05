@@ -648,7 +648,23 @@ def search_2D(arr,target):
                 else:
                     r=m-1
     return False
-
+#method 2- convert 2D to 1D. if we do it complexity will be high instead of that take l =0 and r = n*m, and convert mid to [n][m]
+def search_2D_optimized(arr,target):
+    n = len(arr)
+    m = len(arr[0])
+    l =0
+    r = n*m-1
+    while l<=r:
+        mid = (l+r)//2
+        row = mid//m
+        col = mid%m
+        if arr[row][col]==target:
+            return True
+        elif arr[row][col]<target:
+            l =mid+1
+        else:
+            r = mid-1
+    return False
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
     #print(lower_bound([1,2,2,3],2))
@@ -670,4 +686,4 @@ if __name__=='__main__':
     #print(min_capacity([1,2,3,4,5,6,7,8,9,10],1))
     #print(missingK([4,7,9,10],4,5))
     #print(max_ones([[0,0,0,0]]))
-    print(search_2D([[1,2,3,4],[5,6,7,8],[9,10,11,13]],12))
+    print(search_2D_optimized([[1,2,3,4],[5,6,7,8],[9,10,11,13]],0))

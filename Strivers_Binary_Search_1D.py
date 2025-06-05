@@ -618,7 +618,37 @@ def max_ones(arr):
             max_cnt = m-temp
             max_idx = i
     return max_idx
-            
+############
+#Search in a sorted 2D matrix
+'''  
+Problem Statement: You have been given a 2-D array 'mat' of size 'N x M' where 'N' and 'M' denote the number of rows and columns, respectively. The elements of each row are sorted in non-decreasing order. Moreover, the first element of a row is greater than the last element of the previous row (if it exists). You are given an integer ‘target’, and your task is to find if it exists in the given 'mat' or not.
+Example 1:
+Input Format: N = 3, M = 4, target = 8,
+mat[] = 
+1 2 3 4
+5 6 7 8 
+9 10 11 12
+Result: true
+Explanation: The ‘target’  = 8 exists in the 'mat' at index (1, 3).
+'''
+#method 1 - traverse through all rows, if traget in that row then do BS only in that row (O(N+log(m)))
+def search_2D(arr,target):
+    n = len(arr)
+    m = len(arr[0])
+    for i in range(n):
+        if arr[i][0]<=target and arr[i][-1]>=target:
+            l = 0
+            r = m-1
+            while l<=r:
+                m = (l+r)//2
+                if arr[i][m]==target:
+                    return True
+                elif arr[i][m]<target:
+                    l = m+1
+                else:
+                    r=m-1
+    return False
+
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
     #print(lower_bound([1,2,2,3],2))
@@ -639,4 +669,5 @@ if __name__=='__main__':
     #print(smallest_divisor([8,4,2,3],10))
     #print(min_capacity([1,2,3,4,5,6,7,8,9,10],1))
     #print(missingK([4,7,9,10],4,5))
-    print(max_ones([[0,0,0,0]]))
+    #print(max_ones([[0,0,0,0]]))
+    print(search_2D([[1,2,3,4],[5,6,7,8],[9,10,11,13]],12))

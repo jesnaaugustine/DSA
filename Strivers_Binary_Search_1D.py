@@ -314,6 +314,37 @@ def single_ele(arr):
         else:
             r = m-1
     return -1
+#############
+#Peak element in Array
+'''  
+roblem Statement: Given an array of length N. Peak element is defined as the element greater than both of its neighbors. Formally, if 'arr[i]' is the peak element, 'arr[i - 1]' < 'arr[i]' and 'arr[i + 1]' < 'arr[i]'. Find the index(0-based) of a peak element in the array. If there are multiple peak numbers, return the index of any peak number.
+
+Note: For the first element, the previous element should be considered as negative infinity as well as for the last element, the next element should be considered as negative infinity.
+https://takeuforward.org/data-structure/peak-element-in-array/
+Example 1:
+Input Format: arr[] = {1,2,3,4,5,6,7,8,5,1}
+Result: 7
+Explanation: In this example, there is only 1 peak that is at index 7.
+
+'''
+def peak_element(arr):
+    if len(arr)==1:
+        return 0
+    if arr[0]>arr[1]:
+        return 0
+    if arr[-1]>arr[-2]:
+        return len(arr)-1
+    l = 1
+    r = len(arr)-2
+    while l<=r:
+        m =(l+r)//2
+        if arr[m]>arr[m-1] and arr[m]>arr[m+1]:
+            return m
+        elif arr[m-1]<arr[m]:
+            l =m+1
+        else:
+            r =m-1
+    return -1
 
 #########
 #Finding Sqrt of a number using Binary Search
@@ -677,13 +708,17 @@ if __name__=='__main__':
     #print(bs_rotated([7, 8, 1, 3, 3, 3, 4, 5, 6],2))
     #print(min_rotated([4,5,6,7,0,1,2,3,3]))
     #print(rotation_count([3,4,5,6,7,0,1,2,3]))
+    print(peak_element([1,2,3,4,5,6,7,8,5,1]))
 
+    ###BS on Answers
     #print(single_ele([1,2,2,3,3,4,4,5,5,6,6]))
     #print(sqrt(36))
     #print(minEatingSpeed([30,11,23,4,20],6))
     #print(bouquet_make([1, 10, 3, 10, 2],2,3))
     #print(smallest_divisor([8,4,2,3],10))
     #print(min_capacity([1,2,3,4,5,6,7,8,9,10],1))
+    ###BS on 2D array
     #print(missingK([4,7,9,10],4,5))
     #print(max_ones([[0,0,0,0]]))
-    print(search_2D_optimized([[1,2,3,4],[5,6,7,8],[9,10,11,13]],0))
+
+    #print(search_2D_optimized([[1,2,3,4],[5,6,7,8],[9,10,11,13]],0))

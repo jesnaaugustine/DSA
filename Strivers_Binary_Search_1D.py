@@ -696,6 +696,28 @@ def search_2D_optimized(arr,target):
         else:
             r = mid-1
     return False
+######
+#Search in a row and column-wise sorted matrix
+'''  
+Problem Statement: You have been given a 2-D array 'mat' of size 'N x M' where 'N' and 'M' denote the number of rows and columns, respectively. The elements of each row and each column are sorted in non-decreasing order.
+But, the first element of a row is not necessarily greater than the last element of the previous row (if it exists).
+You are given an integer ‘target’, and your task is to find if it exists in the given 'mat' or not.
+
+https://takeuforward.org/arrays/search-in-a-row-and-column-wise-sorted-matrix/
+'''
+def search_2D_sorted(arr,target):
+    row = len(arr)
+    col = len(arr[0])
+    r =0
+    c = col-1
+    while r<row and c>=0:
+        if arr[r][c]==target:
+            return True
+        elif arr[r][c]>target:
+            c-=1
+        else:
+            r+=1
+    return False
 if __name__=='__main__':
     #print(binary_search([3, 4, 6, 7, 9, 12, 16, 17],1))
     #print(lower_bound([1,2,2,3],2))
@@ -708,7 +730,7 @@ if __name__=='__main__':
     #print(bs_rotated([7, 8, 1, 3, 3, 3, 4, 5, 6],2))
     #print(min_rotated([4,5,6,7,0,1,2,3,3]))
     #print(rotation_count([3,4,5,6,7,0,1,2,3]))
-    print(peak_element([1,2,3,4,5,6,7,8,5,1]))
+    #print(peak_element([1,2,3,4,5,6,7,8,5,1]))
 
     ###BS on Answers
     #print(single_ele([1,2,2,3,3,4,4,5,5,6,6]))
@@ -720,5 +742,5 @@ if __name__=='__main__':
     ###BS on 2D array
     #print(missingK([4,7,9,10],4,5))
     #print(max_ones([[0,0,0,0]]))
-
     #print(search_2D_optimized([[1,2,3,4],[5,6,7,8],[9,10,11,13]],0))
+    print(search_2D_sorted([[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]],25))

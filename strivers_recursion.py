@@ -74,10 +74,24 @@ def reverse_inplace(arr):
         arr[l],arr[r]=arr[r],arr[l]
         return inner(l+1,r-1)
     return inner(0,len(arr)-1)
-
+##########
+#print all subsequence
+def sub_seq(arr):
+    ans =[]
+    def inner(ind,new):
+        if ind ==3:
+            ans.append(new.copy())
+            return
+        new.append(arr[ind])
+        inner(ind+1,new)
+        new.pop()
+        inner(ind+1,new)
+    inner(0,[])
+    return ans
         
 if __name__=='__main__':
     #print(power(2,10))
     #print(countGoodNumbers(50))
     #print(sum_n(3))
-    print(reverse_inplace([1,2,3,4,5]))
+    #print(reverse_inplace([1,2,3,4,5]))
+    print(sub_seq([3,1,2]))

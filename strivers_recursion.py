@@ -50,8 +50,34 @@ def countGoodNumbers(n):
         odd = n//2
         even = n//2+1
     return (inner_pow(t_even,even)*inner_pow(t_odd,odd))%mod
-    
+##########
+#sum of first N numbers
+def sum_n(N):
+    if N ==0:
+        return 0
+    return N+sum_n(N-1)
+
+#reverse an array
+def reverse(arr):
+    new =[]
+    def inner(new,arr,n):
+        if n<0:
+            return new
+        new.append(arr[n])
+        return inner(new,arr,n-1)
+    return inner(new,arr,len(arr)-1)
+#inplace
+def reverse_inplace(arr):
+    def inner(l,r):
+        if l>r:
+            return arr
+        arr[l],arr[r]=arr[r],arr[l]
+        return inner(l+1,r-1)
+    return inner(0,len(arr)-1)
+
         
 if __name__=='__main__':
     #print(power(2,10))
-    print(countGoodNumbers(50))
+    #print(countGoodNumbers(50))
+    #print(sum_n(3))
+    print(reverse_inplace([1,2,3,4,5]))

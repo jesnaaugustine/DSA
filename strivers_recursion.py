@@ -79,7 +79,7 @@ def reverse_inplace(arr):
 def sub_seq(arr):
     ans =[]
     def inner(ind,new):
-        if ind ==3:
+        if ind ==len(arr):
             ans.append(new.copy())
             return
         new.append(arr[ind])

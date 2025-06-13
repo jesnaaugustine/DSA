@@ -88,10 +88,66 @@ def sub_seq(arr):
         inner(ind+1,new)
     inner(0,[])
     return ans
+###########
+#subsequence whose sum is K
+def sub_sum_k(arr,K):
+    ans =[]
+    def inner(ind,new):
+        if ind == len(arr):
+            if sum(new)==K:
+                ans.append(new.copy())
+                return True
+            else:
+                return False
+            
+        new.append(arr[ind])
+        flag1 =inner(ind+1,new)
+        if flag1:
+            return True
+        new.pop()
+        flag2 =inner(ind+1,new)
+        if flag2:
+            return True
+        return False
+    inner(0,[])
+    return ans
+#######
+#39. Combination Sum
+''' 
+Input: candidates = [2,3,6,7], target = 7
+Output: [[2,2,3],[7]]
+Explanation:
+2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.
+7 is a candidate, and 7 = 7.
+These are the only two combinations.
+ '''
+def combination_sum(arr,target):
+    ans = []
+    def inner(ind,new,s):
+        if s==target:
+            ans.append(new.copy())
+            return
+        elif s>target:
+            return
+        if ind ==len(arr):
+            return 
+        new.append(arr[ind])
+        s +=arr[ind]
+        inner(ind,new,s)
+        new.pop()
+        s-=arr[ind]
+        inner(ind+1,new,s)
+    inner(0,[],0)
+    return ans
+
+
+
         
 if __name__=='__main__':
     #print(power(2,10))
     #print(countGoodNumbers(50))
     #print(sum_n(3))
     #print(reverse_inplace([1,2,3,4,5]))
-    print(sub_seq([3,1,2]))
+    #print(sub_seq([3,1,2]))
+    #print(sub_sum_k([1,2,1],2))
+    print(combination_sum([2,3,6,7],7))

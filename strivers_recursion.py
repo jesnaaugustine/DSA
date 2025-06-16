@@ -141,8 +141,66 @@ def combination_sum(arr,target):
     return ans
 
 
+#######
+#Combination Sum II
+'''  
+Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target.
 
-        
+Each number in candidates may only be used once in the combination.
+
+Note: The solution set must not contain duplicate combinations.
+'''
+def combinationSum2(candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        candidates.sort()
+        ans = []
+        def inner(ind,s,new):
+            if s ==target:
+                if new[:] not in ans:
+                    ans.append(new[:])
+                return 
+            if ind ==len(candidates):
+                return
+            if s>target:
+                return
+            new.append(candidates[ind])
+            s+=candidates[ind]
+            inner(ind+1,s,new)
+        inner(0,0,[])
+        return ans
+#####optimized
+def combinationSum2(candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        candidates.sort()
+        ans = []
+        def inner(ind,s,new):
+            if s ==target:
+                if new[:] not in ans:
+                    ans.append(new[:])
+                return 
+            if ind ==len(candidates):
+                return
+            if s>target:
+                return
+            for i in range(ind,len(candidates)):
+                if i>ind and candidates[i]==candidates[i-1]:
+                    continue
+                new.append(candidates[i])
+                s+=candidates[i]
+                inner(i+1,s,new)
+                new.pop()
+                s-=candidates[i]
+            
+        inner(0,0,[])
+        return ans
 if __name__=='__main__':
     #print(power(2,10))
     #print(countGoodNumbers(50))
@@ -150,4 +208,5 @@ if __name__=='__main__':
     #print(reverse_inplace([1,2,3,4,5]))
     #print(sub_seq([3,1,2]))
     #print(sub_sum_k([1,2,1],2))
-    print(combination_sum([2,3,6,7],7))
+    #print(combination_sum([2,3,6,7],7))
+    print(combinationSum2([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],3))

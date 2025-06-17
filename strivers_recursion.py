@@ -201,6 +201,36 @@ def combinationSum2(candidates, target):
             
         inner(0,0,[])
         return ans
+
+######
+#ubset Sum : Sum of all Subsets
+''' 
+Problem Statement: Given an array print all the sum of the subset generated from it, in the increasing order.
+
+Examples:
+
+Example 1:
+
+Input: N = 3, arr[] = {5,2,1}
+
+Output: 0,1,2,3,5,6,7,8
+
+Explanation: We have to find all the subset’s sum and print them.in this case the generated subsets are [ [], [1], [2], [2,1], [5], [5,1], [5,2]. [5,2,1],so the sums we get will be  0,1,2,3,5,6,7,8
+'''
+
+def subset_sum(arr):
+    res = []
+    def inner(ind,s):
+        if ind==len(arr):
+            res.append(s)
+            return
+        s+=arr[ind]
+        inner(ind+1,s)
+        s-=arr[ind]
+        inner(ind+1,s)
+    inner(0,0)
+    return sorted(res)
+        
 if __name__=='__main__':
     #print(power(2,10))
     #print(countGoodNumbers(50))
@@ -209,4 +239,5 @@ if __name__=='__main__':
     #print(sub_seq([3,1,2]))
     #print(sub_sum_k([1,2,1],2))
     #print(combination_sum([2,3,6,7],7))
-    print(combinationSum2([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],3))
+    #print(combinationSum2([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],3))
+    print(subset_sum([5,2,1]))

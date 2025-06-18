@@ -139,6 +139,22 @@ def combination_sum(arr,target):
         inner(ind+1,new,s)
     inner(0,[],0)
     return ans
+def combination_sum_rep(arr,target):
+    ans =[]
+    def inner(ind,s,new):
+        if s==target:
+            ans.append(new[:])
+            return
+        if ind==len(arr) or s>target:
+            return
+        for i in range(ind,len(arr)):
+            new.append(arr[i])
+            s+=arr[i]
+            inner(i,s,new)
+            new.pop()
+            s-=arr[i]
+    inner(0,0,[])
+    return ans
 
 
 #######
@@ -311,7 +327,7 @@ def subset_sum(arr):
     return ans
 
 ###############
-#generate all subsets of array contains duplicates
+#generate all subsets of array contains duplicates, remove duplicates
 def subset_duplicates(arr):
     ans =[]
     arr.sort()
@@ -329,6 +345,27 @@ def subset_duplicates(arr):
     inner(0,[])
     return ans
 
+##########
+#GENERATE ALL PERMUTATIONS with length k
+def permutation(arr,k):
+    ans =[]
+    def inner(picked,new):
+        if len(new)==k:
+            ans.append(new[:])
+            return
+        #if ind==len(arr):
+         #   return
+        for i in range(0,len(arr)):
+            if i in picked:
+                continue
+            new.append(arr[i])
+            picked.add(i)
+            inner(picked,new)
+            new.pop()
+            picked.remove(i)
+    inner(set(),[])
+    return ans
+
 if __name__=='__main__':
     #print(power(2,10))
     #print(countGoodNumbers(50))
@@ -337,10 +374,10 @@ if __name__=='__main__':
     #print(sub_seq([1,2]))
     #print(sub_sum_k([1,2,1],2))
     #print(combination_sum([2,3,6,7],7))
+    #print(f'combination sum with unlimited num in [2,3,6,7] is {combination_sum_rep([2,3,6,7],7)}')
     #print(combinationSum2([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],3))
     #print(subset_sum([5,2,1]))
     #print(combination(3))
     #print(combination_sum_n(4,5))
-    print(f'subset of [1,2,2] without removing duplicates {subset([1,2,2])}')
-    #print(subset_sum([1,2,3]))
-    print(f'subset of [1,2,2] with removing duplicates {subset_duplicates([1,2,2])}')
+    ##print(f'subset of [1,2,2] with removing duplicates {subset_duplicates([1,2,2])}')
+    print(permutation([1,2,3],3))

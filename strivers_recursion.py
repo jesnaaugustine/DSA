@@ -144,7 +144,8 @@ def combination_sum(arr,target):
 #######
 #Combination Sum II
 '''  
-Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target.
+Given a collection of candidate numbers (candidates) and a target number (target),
+ find all unique combinations in candidates where the candidate numbers sum to target.
 
 Each number in candidates may only be used once in the combination.
 
@@ -220,6 +221,7 @@ Explanation: We have to find all the subset’s sum and print them.in this case 
 
 def subset_sum(arr):
     res = []
+    arr.sort(reverse=True)
     def inner(ind,s):
         if ind==len(arr):
             res.append(s)
@@ -229,15 +231,64 @@ def subset_sum(arr):
         s-=arr[ind]
         inner(ind+1,s)
     inner(0,0)
-    return sorted(res)
+    return res
+#####################
+#generate all combination for [1,n]
+def combination(n):
+    res =[]
+    def inner(ind,new):
+        #res.append(new[:])
+        if ind == n+1:
+            res.append(new[:])
+            return
+        for i in range(ind,n+1):
+            new.append(i)
+            inner(i+1,new)
+            new.pop()
+    inner(1,[])
+    return res
+
+#generate all combination with k length for above problem
+def combination_k(n,k):
+    res =[]
+    def inner(ind,new):
+        if len(new)==k:
+            res.append(new[:])
+            return
         
+        for i in range(ind,n+1):
+            new.append(i)
+            inner(i+1,new)
+            new.pop()
+    inner(1,[])
+    return res
+#generate all combinations with sum =target for above problem
+def combination_sum_n(n,target):
+    res =[]
+    def inner(ind,new,s):
+        if s==target:
+            res.append(new[:])
+            return
+        if ind >=n+1 or s>target:
+            return
+        for i in range(ind,n+1):
+            new.append(i)
+            s+=i
+            inner(i+1,new,s)
+            s-=i
+            new.pop()
+    inner(1,[],0)
+    return res
+
 if __name__=='__main__':
     #print(power(2,10))
     #print(countGoodNumbers(50))
     #print(sum_n(3))
     #print(reverse_inplace([1,2,3,4,5]))
-    #print(sub_seq([3,1,2]))
+    #print(sub_seq([1,2]))
     #print(sub_sum_k([1,2,1],2))
     #print(combination_sum([2,3,6,7],7))
     #print(combinationSum2([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],3))
-    print(subset_sum([5,2,1]))
+    #print(subset_sum([5,2,1]))
+    print(combination(2))
+    #print(combination_sum_n(4,5))

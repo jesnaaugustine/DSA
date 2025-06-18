@@ -280,6 +280,55 @@ def combination_sum_n(n,target):
     inner(1,[],0)
     return res
 
+
+################
+#generate all subset
+# all subset is same as all combinations
+def subset(arr):
+    ans =[]
+    def inner(ind,new):
+        ans.append(new[:])
+        if ind ==len(arr):
+            return
+        for i in range(ind,len(arr)):
+            new.append(arr[i])
+            inner(i+1,new)
+            new.pop()
+    inner(0,[])
+    return ans
+#generate all subset sum
+def subset_sum(arr):
+    ans =[]
+    def inner(ind,s):
+        ans.append(s)
+        if ind==len(arr):
+            return
+        for i in range(ind,len(arr)):
+            s+=arr[i]
+            inner(i+1,s)
+            s-=arr[i]
+    inner(0,0)
+    return ans
+
+###############
+#generate all subsets of array contains duplicates
+def subset_duplicates(arr):
+    ans =[]
+    arr.sort()
+
+    def inner(ind,new):
+        ans.append(new[:])
+        if ind ==len(arr):
+            return
+        for i in range(ind,len(arr)):
+            if i>ind and arr[i]==arr[i-1]:
+                continue
+            new.append(arr[i])
+            inner(i+1,new)
+            new.pop()
+    inner(0,[])
+    return ans
+
 if __name__=='__main__':
     #print(power(2,10))
     #print(countGoodNumbers(50))
@@ -290,5 +339,8 @@ if __name__=='__main__':
     #print(combination_sum([2,3,6,7],7))
     #print(combinationSum2([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],3))
     #print(subset_sum([5,2,1]))
-    print(combination(2))
+    #print(combination(3))
     #print(combination_sum_n(4,5))
+    print(f'subset of [1,2,2] without removing duplicates {subset([1,2,2])}')
+    #print(subset_sum([1,2,3]))
+    print(f'subset of [1,2,2] with removing duplicates {subset_duplicates([1,2,2])}')

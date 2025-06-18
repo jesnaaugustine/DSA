@@ -237,9 +237,9 @@ def subset_sum(arr):
 def combination(n):
     res =[]
     def inner(ind,new):
-        #res.append(new[:])
+        res.append(new[:])
         if ind == n+1:
-            res.append(new[:])
+            #res.append(new[:])
             return
         for i in range(ind,n+1):
             new.append(i)

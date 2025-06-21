@@ -390,6 +390,27 @@ def telphone_com(s):
     inner(0,[])
     return ans
 
+###########
+#Palindrome Partitioning
+''' 
+Input: s = “aabb”
+
+Output: [ [“a”,”a”,”b”,”b”], [“aa”,”bb”], [“a”,”a”,”bb”], [“aa”,”b”,”b”] ] 
+'''
+def palindrome_part(s):
+    ans =[]
+    def inner(ind,new):
+        if ind ==len(s):
+            ans.append(new[:])
+        for i in range(ind,len(s)):
+            if s[ind:i+1]==s[ind:i+1][::-1]:
+                new.append(s[ind:i+1])
+                inner(i+1,new)
+                new.pop()
+    inner(0,[])
+    return ans
+
+
 
 
 if __name__=='__main__':
@@ -407,4 +428,5 @@ if __name__=='__main__':
     #print(combination_sum_n(4,5))
     ##print(f'subset of [1,2,2] with removing duplicates {subset_duplicates([1,2,2])}')
     #print(permutation([1,2,3],3))
-    print(telphone_com('23'))
+    #print(telphone_com('23'))
+    print(palindrome_part('aab'))

@@ -353,8 +353,6 @@ def permutation(arr,k):
         if len(new)==k:
             ans.append(new[:])
             return
-        #if ind==len(arr):
-         #   return
         for i in range(0,len(arr)):
             if i in picked:
                 continue
@@ -365,6 +363,34 @@ def permutation(arr,k):
             picked.remove(i)
     inner(set(),[])
     return ans
+#########
+#17. Letter Combinations of a Phone Number
+'''
+Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.
+
+A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+map ={'2':'abc','3':'def','4':'ghi','5':'jkl','6':'mno','7':'pqrs','8':'tuv','9':'wxyz'}
+
+
+'''
+def telphone_com(s):
+    ans =[]
+
+    map ={'2':'abc','3':'def','4':'ghi','5':'jkl','6':'mno','7':'pqrs','8':'tuv','9':'wxyz'}
+    def inner(ind,new):
+        if len(new)==len(s):
+            ans.append(''.join(new[:]))
+            return
+        if ind ==len(s):
+            return
+        for i in map[s[ind]]:
+            new.append(i)
+            inner(ind+1,new)
+            new.pop()
+    inner(0,[])
+    return ans
+
+
 
 if __name__=='__main__':
     #print(power(2,10))
@@ -380,4 +406,5 @@ if __name__=='__main__':
     #print(combination(3))
     #print(combination_sum_n(4,5))
     ##print(f'subset of [1,2,2] with removing duplicates {subset_duplicates([1,2,2])}')
-    print(permutation([1,2,3],3))
+    #print(permutation([1,2,3],3))
+    print(telphone_com('23'))

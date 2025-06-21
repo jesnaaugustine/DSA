@@ -409,10 +409,73 @@ def palindrome_part(s):
                 new.pop()
     inner(0,[])
     return ans
-
-
-
-
+##########
+def word_search(board,word):
+    global ans
+    ans =False
+    def stat_idx(board,s):
+        str_idx =[]
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j]==s:
+                    str_idx.append((i,j))
+        return str_idx
+    
+    def inner(start,picked,ind,new):
+        if ind ==  len(word):
+            return True
+        if start[0]<0 or start[0]>=len(board):
+            return
+        if start[1]<0 or start[1]>=len(board[0]):
+            return
+        
+        if start in picked:
+            return
+        for i in range(ind,len(word)):
+            if word[i]==board[start[0]][start[1]]:
+                picked.add(start)
+                fl1=inner((start[0],start[1]+1),picked,i+1,new)
+                fl2=inner((start[0],start[1]-1),picked,i+1,new)
+                fl3 =inner((start[0]+1,start[1]),picked,i+1,new)
+                fl4 =inner((start[0]-1,start[1]),picked,i+1,new)
+                picked.remove(start)
+                if fl1 or fl2 or fl3 or fl4:
+                    return True
+                else:
+                    return False
+                
+            else:
+                break
+  
+    str_idx =stat_idx(board,word[0])
+    if len(str_idx) ==0:
+        return False
+    for st in str_idx:
+        if not ans:
+            ans = inner(st,set(),0,[])
+    return ans
+##########
+def exist(board, word):
+    def backtrack(i, j, k):
+        if k == len(word):
+            return True
+        if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]) or board[i][j] != word[k]:
+            return False
+        
+        temp = board[i][j]
+        board[i][j] = ''
+        
+        if backtrack(i+1, j, k+1) or backtrack(i-1, j, k+1) or backtrack(i, j+1, k+1) or backtrack(i, j-1, k+1):
+            return True
+        
+        board[i][j] = temp
+        return False
+    
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            if backtrack(i, j, 0):
+                return True
+    return False
 if __name__=='__main__':
     #print(power(2,10))
     #print(countGoodNumbers(50))
@@ -429,4 +492,7 @@ if __name__=='__main__':
     ##print(f'subset of [1,2,2] with removing duplicates {subset_duplicates([1,2,2])}')
     #print(permutation([1,2,3],3))
     #print(telphone_com('23'))
-    print(palindrome_part('aab'))
+    #print(palindrome_part('aab'))
+    board =[['a']]
+    word = "a"
+    print(exist(board,word))

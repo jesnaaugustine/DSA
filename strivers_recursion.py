@@ -421,38 +421,31 @@ def word_search(board,word):
                     str_idx.append((i,j))
         return str_idx
     
-    def inner(start,picked,ind,new):
+    def inner(start,picked,ind):
         if ind ==  len(word):
             return True
-        if start[0]<0 or start[0]>=len(board):
-            return
-        if start[1]<0 or start[1]>=len(board[0]):
-            return
+        if start[0]<0 or start[0]>=len(board) or start[1]<0 or start[1]>=len(board[0]) or word[ind]!=board[start[0]][start[1]] :
+            return False
         
         if start in picked:
-            return
-        for i in range(ind,len(word)):
-            if word[i]==board[start[0]][start[1]]:
-                picked.add(start)
-                fl1=inner((start[0],start[1]+1),picked,i+1,new)
-                fl2=inner((start[0],start[1]-1),picked,i+1,new)
-                fl3 =inner((start[0]+1,start[1]),picked,i+1,new)
-                fl4 =inner((start[0]-1,start[1]),picked,i+1,new)
-                picked.remove(start)
-                if fl1 or fl2 or fl3 or fl4:
-                    return True
-                else:
-                    return False
-                
-            else:
-                break
-  
+            return 
+        picked.add(start)
+        fl1=inner((start[0],start[1]+1),picked,ind+1)
+        fl2=inner((start[0],start[1]-1),picked,ind+1)
+        fl3 =inner((start[0]+1,start[1]),picked,ind+1)
+        fl4 =inner((start[0]-1,start[1]),picked,ind+1)
+        picked.remove(start)
+        if fl1 or fl2 or fl3 or fl4:
+            return True
+        else:
+            return False
+
     str_idx =stat_idx(board,word[0])
     if len(str_idx) ==0:
         return False
     for st in str_idx:
         if not ans:
-            ans = inner(st,set(),0,[])
+            ans = inner(st,set(),0)
     return ans
 ##########
 def exist(board, word):
@@ -493,6 +486,6 @@ if __name__=='__main__':
     #print(permutation([1,2,3],3))
     #print(telphone_com('23'))
     #print(palindrome_part('aab'))
-    board =[['a']]
-    word = "a"
-    print(exist(board,word))
+    board =[['a','b'],['a','c']]
+    word = "abc"
+    print(word_search(board,word))

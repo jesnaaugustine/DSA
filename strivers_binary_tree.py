@@ -80,7 +80,20 @@ class Solution(object):
         if root is not None:
             inner([root])
         return ans
-
+    
+    ###depth of a tree
+    def maxDepth(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: int
+        """
+        def inner(root_in):
+            if root_in is None:
+                return 0
+            left = inner(root_in.left)
+            right = inner(root_in.right)
+            return max(left,right)+1
+        return inner(root)
 if __name__=='__main__':
     root = TreeNode(val =1,left =None,right =None)
     right = TreeNode(val =2,left =TreeNode(3),right =None)
@@ -90,3 +103,4 @@ if __name__=='__main__':
     print(sol.inorderTraversal(root))
     print(sol.postorderTraversal(root))
     print(sol.levelOrder(root))
+    print(sol.maxDepth(root))

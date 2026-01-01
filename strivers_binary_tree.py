@@ -54,6 +54,33 @@ class Solution(object):
         inner(root)
         return ans
     
+
+
+    def levelOrder(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: List[List[int]]
+        """
+        ans =[]
+        def inner(que):
+            if len(que)==0:
+                return
+            ans_temp =[]
+            q_temp=[]
+
+            for q in que:
+                ans_temp.append(q.val)
+                if q.left is not None:
+                    q_temp.append(q.left)
+                if q.right is not None:
+                    q_temp.append(q.right)
+            ans.append(ans_temp)
+            que = q_temp
+            inner(que)
+        if root is not None:
+            inner([root])
+        return ans
+
 if __name__=='__main__':
     root = TreeNode(val =1,left =None,right =None)
     right = TreeNode(val =2,left =TreeNode(3),right =None)
@@ -62,3 +89,4 @@ if __name__=='__main__':
     print(sol.preorderTraversal(root))
     print(sol.inorderTraversal(root))
     print(sol.postorderTraversal(root))
+    print(sol.levelOrder(root))

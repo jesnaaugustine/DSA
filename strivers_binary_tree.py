@@ -94,6 +94,34 @@ class Solution(object):
             right = inner(root_in.right)
             return max(left,right)+1
         return inner(root)
+    
+    #return true if it is a Balanced Binary Tree else return false. A Binary Tree is balanced if, for all nodes in the tree, the difference between left and right subtree height is not more than 1..
+    def isBalanced(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: bool
+        """
+        if root is None:
+            return True
+        def inner(root_in):
+            if root_in is None:
+                return 0
+            left = inner(root_in.left)
+            right = inner(root_in.right)
+            if left ==-1 or right ==-1:
+                return -1
+            if abs(left-right)>1:
+                return -1
+            else:
+                return max(left,right)+1
+        
+        ind = inner(root)
+        if ind ==-1:
+            return False
+        else:
+            return True
+        
+        
 if __name__=='__main__':
     root = TreeNode(val =1,left =None,right =None)
     right = TreeNode(val =2,left =TreeNode(3),right =None)
@@ -104,3 +132,4 @@ if __name__=='__main__':
     print(sol.postorderTraversal(root))
     print(sol.levelOrder(root))
     print(sol.maxDepth(root))
+    print(sol.isBalanced(root))

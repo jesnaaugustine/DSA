@@ -120,7 +120,21 @@ class Solution(object):
             return False
         else:
             return True
-        
+    def diameterOfBinaryTree(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: int
+        """
+        self.maxi =0
+        def inner(root_in):
+            if root_in is None:
+                return 0
+            left = inner(root_in.left)
+            right = inner(root_in.right)
+            self.maxi = max(self.maxi,left+right)
+            return max(left,right)+1
+        inner(root)
+        return self.maxi    
         
 if __name__=='__main__':
     root = TreeNode(val =1,left =None,right =None)
@@ -133,3 +147,4 @@ if __name__=='__main__':
     print(sol.levelOrder(root))
     print(sol.maxDepth(root))
     print(sol.isBalanced(root))
+    print(sol.diameterOfBinaryTree(root))

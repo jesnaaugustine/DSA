@@ -153,6 +153,27 @@ class Solution(object):
             return max(left_s,right_s)+root_in.val
         inner(root)
         return self.maxi
+
+    def isSameTree(self, p, q):
+        """
+        :type p: Optional[TreeNode]
+        :type q: Optional[TreeNode]
+        :rtype: bool
+        """
+        self.ans1=[]
+        self.ans2 =[]
+        def inner(root1,ans):
+            if root1 is None:
+                ans.append(None)
+                return
+            ans.append(root1.val)
+            inner(root1.left,ans)
+            inner(root1.right,ans)
+        inner(p,self.ans1)
+        inner(q,self.ans2)
+        return True if self.ans1 ==self.ans2 else  False
+    
+    
 if __name__=='__main__':
     root = TreeNode(val =1,left =None,right =None)
     right = TreeNode(val =2,left =TreeNode(3),right =None)

@@ -172,8 +172,28 @@ class Solution(object):
         inner(p,self.ans1)
         inner(q,self.ans2)
         return True if self.ans1 ==self.ans2 else  False
-    
-    
+    def isSameTree_2(self, p, q):
+        """
+        :type p: Optional[TreeNode]
+        :type q: Optional[TreeNode]
+        :rtype: bool
+        """
+        def inner(root1,root2):
+            if root1 is None and root2 is None:
+                return True
+            if (root1 is None and root2 is not None) or (root1 is not None and root2 is None):
+                return False
+            if root1.val !=root2.val:
+                return False
+            
+            l=inner(root1.left,root2.left)
+            r =inner(root1.right,root2.right)
+            if not r or not l:
+                return False
+            else:
+                return True
+        return inner(p,q)
+
 if __name__=='__main__':
     root = TreeNode(val =1,left =None,right =None)
     right = TreeNode(val =2,left =TreeNode(3),right =None)

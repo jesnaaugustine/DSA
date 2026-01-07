@@ -193,7 +193,35 @@ class Solution(object):
             else:
                 return True
         return inner(p,q)
-
+    def zigzagLevelOrder(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: List[List[int]]
+        """
+        qu=[]
+        ans =[]
+        flag =False
+        if root is None:
+            return qu
+        qu.append(root)
+        while qu:
+            x = len(qu)
+            temp =[]
+            for i in range(x):
+                temp.append(qu[0].val)
+                if qu[0].left is not None:
+                    qu.append(qu[0].left)
+                if qu[0].right is not None:
+                    qu.append(qu[0].right)
+                qu.pop(0)
+            
+            if flag:
+                ans.append(temp[::-1])
+                flag =False
+            else:
+                ans.append(temp)
+                flag = True
+        return ans
 if __name__=='__main__':
     root = TreeNode(val =1,left =None,right =None)
     right = TreeNode(val =2,left =TreeNode(3),right =None)
@@ -207,3 +235,4 @@ if __name__=='__main__':
     print(sol.isBalanced(root))
     print(sol.diameterOfBinaryTree(root))
     print(sol.maxPathSum(root))
+    print(sol.zigzagLevelOrder(root))

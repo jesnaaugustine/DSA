@@ -222,6 +222,37 @@ class Solution(object):
                 ans.append(temp)
                 flag = True
         return ans
+    def isSymmetric(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: bool
+        """
+        if root is None:
+            return True
+        qu =[]
+        qu.append(root)
+        while qu:
+            x = len(qu)
+            temp =[]
+            for i in range(x):
+                
+                if qu[0].left is not None:
+                    temp.append(qu[0].left.val)
+                    qu.append(qu[0].left)
+                else:
+                    temp.append(None)
+                if qu[0].right is not None:
+                    temp.append(qu[0].right.val)
+                    qu.append(qu[0].right)
+                else:
+                    temp.append(None)
+                qu.pop(0)
+            if temp !=temp[::-1]:
+                return False
+        return True
+
+    
+        
 if __name__=='__main__':
     root = TreeNode(val =1,left =None,right =None)
     right = TreeNode(val =2,left =TreeNode(3),right =None)
@@ -236,3 +267,4 @@ if __name__=='__main__':
     print(sol.diameterOfBinaryTree(root))
     print(sol.maxPathSum(root))
     print(sol.zigzagLevelOrder(root))
+    print(sol.isSymmetric(root))

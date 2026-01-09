@@ -250,6 +250,26 @@ class Solution(object):
             if temp !=temp[::-1]:
                 return False
         return True
+    def rightSideView(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: List[int]
+        """
+        ans =[]
+        if root is None:
+            return []
+        qu =[root]
+        while qu:
+            x = len(qu)
+            for i in range(x):
+                if i==x-1:
+                    ans.append(qu[0].val)
+                if qu[0].left is not None:
+                    qu.append(qu[0].left)
+                if qu[0].right is not None:
+                    qu.append(qu[0].right)
+                qu.pop(0)
+        return ans
 
     
         
@@ -268,3 +288,4 @@ if __name__=='__main__':
     print(sol.maxPathSum(root))
     print(sol.zigzagLevelOrder(root))
     print(sol.isSymmetric(root))
+    print(sol.rightSideView(root))

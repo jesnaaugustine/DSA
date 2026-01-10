@@ -271,7 +271,26 @@ class Solution(object):
                 qu.pop(0)
         return ans
 
-    
+    def widthOfBinaryTree(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: int
+        """
+        if root is None:
+            return 0
+        max_w =1
+        qu ={0:root}
+        while qu:
+            temp ={}
+            for item in qu.items():
+                if item[1].left is not None:
+                    temp[item[0]*2]=item[1].left
+                if item[1].right is not None:
+                    temp[item[0]*2+1]=item[1].right
+            if temp:
+                max_w =max(max_w,max(temp)-min(temp)+1)
+            qu=temp
+        return max_w
         
 if __name__=='__main__':
     root = TreeNode(val =1,left =None,right =None)
@@ -289,3 +308,4 @@ if __name__=='__main__':
     print(sol.zigzagLevelOrder(root))
     print(sol.isSymmetric(root))
     print(sol.rightSideView(root))
+    print(sol.widthOfBinaryTree(root))

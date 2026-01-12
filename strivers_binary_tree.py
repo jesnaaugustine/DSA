@@ -291,6 +291,28 @@ class Solution(object):
                 max_w =max(max_w,max(temp)-min(temp)+1)
             qu=temp
         return max_w
+    ##leetcode: 114. Flatten Binary Tree to Linked List
+    def flatten(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: None Do not return anything, modify root in-place instead.
+        """
+        ans =[]
+        def inner(root1):
+            if root1 is None:
+                return
+            ans.append(root1.val)
+            inner(root1.left)
+            inner(root1.right)
+        inner(root)
+        temp = root
+        for i in range(1,len(ans)):
+            temp.left =None
+            temp.right = TreeNode(ans[i])
+            temp=temp.right
+        return root
+            
+
         
 if __name__=='__main__':
     root = TreeNode(val =1,left =None,right =None)
@@ -309,3 +331,4 @@ if __name__=='__main__':
     print(sol.isSymmetric(root))
     print(sol.rightSideView(root))
     print(sol.widthOfBinaryTree(root))
+    print(sol.flatten(root))

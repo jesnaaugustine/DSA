@@ -311,7 +311,62 @@ class Solution(object):
             temp.right = TreeNode(ans[i])
             temp=temp.right
         return root
+    ###Leetcode:863. All Nodes Distance K in Binary Tree
+    def distanceK(self, root, target, k):
+        """
+        :type root: TreeNode
+        :type target: TreeNode
+        :type k: int
+        :rtype: List[int]
+        """
+        self.parentmap ={}
+        qu =[root]
+        self.targetNode =None
+        while qu:
+            l = len(qu)
+            for i in range(l):
+                
+                if qu[0].val ==target.val:
+                    self.targetNode =qu[0]
+                if qu[0].left is not None:
+                    qu.append(qu[0].left)
+                    self.parentmap[qu[0].left]=qu[0]
+                if qu[0].right is not None:
+                    qu.append(qu[0].right)
+                    self.parentmap[qu[0].right]=qu[0]
+                qu.pop(0)
+        qu1=[self.targetNode]
+        visited = [self.targetNode.val]
+        c_level =0
+        if k ==c_level:
+            return [self.targetNode.val]
+        while qu1:
+            l = len(qu1)
+            for i in range(l):
+                if qu1[0].left is not None and qu1[0].left.val not in visited:
+                    qu1.append(qu1[0].left)
+                    visited.append(qu1[0].left.val)
+                if qu1[0].right is not None and qu1[0].right.val not in visited:
+                    qu1.append(qu1[0].right)
+                    visited.append(qu1[0].right.val)
+                if qu1[0] !=root and self.parentmap[qu1[0]].val not in visited:
+                    qu1.append(self.parentmap[qu1[0]])
+                    visited.append(self.parentmap[qu1[0]].val)
+                qu1.pop(0)
             
+            c_level +=1
+            if c_level ==k:
+                temp =[]
+                for q in qu1:
+                    temp.append(q.val)
+                return temp
+        return qu
+
+            
+            
+                
+
+        
 
         
 if __name__=='__main__':

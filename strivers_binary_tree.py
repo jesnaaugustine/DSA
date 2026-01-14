@@ -361,7 +361,39 @@ class Solution(object):
                     temp.append(q.val)
                 return temp
         return qu
-
+    #Leetcode:222. Count Complete Tree Nodes
+    def countNodes(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: int
+        """
+        co =0
+        if root is None:
+            return co
+        co =1
+        qu =[root]
+        while qu:
+            l = len(qu)
+            c_temp =0
+            for i in range(l):
+                if qu[0].left is not None:
+                    qu.append(qu[0].left)
+                    c_temp+=1
+                else:
+                    qu.pop(0)
+                    break
+                if qu[0].right is not None:
+                    qu.append(qu[0].right)
+                    c_temp+=1
+                else:
+                    qu.pop(0)
+                    break
+                qu.pop(0)
+                
+            co+=c_temp
+            if c_temp<2*l:
+                break
+        return co
             
             
                 

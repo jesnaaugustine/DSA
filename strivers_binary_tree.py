@@ -394,8 +394,39 @@ class Solution(object):
             if c_temp<2*l:
                 break
         return co
-            
-            
+    #  leetcode:236. Lowest Common Ancestor of a Binary Tree     
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        self.parent ={}
+        target ={}
+        if root is None:
+            return root
+        qu =[root]
+        level =0
+        while qu:
+            l = len(qu)
+            for i in range(l):
+                if qu[0]==q or qu[0] ==p:
+                    target[qu[0]]=level
+                if qu[0].left is not None:
+                    qu.append(qu[0].left)
+                    self.parent[qu[0].left]=qu[0]
+                if qu[0].right is not None:
+                    qu.append(qu[0].right)
+                    self.parent[qu[0].right]=qu[0]
+                qu.pop(0)
+            level+=1
+        while len(target)>1:
+            temp =max(target.items(),key =lambda item: item[1])
+            target.pop(temp[0])
+            target[self.parent[temp[0]]]=temp[1]-1
+        return target.keys()[0]
+        
                 
 
         

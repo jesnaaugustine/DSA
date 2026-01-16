@@ -394,6 +394,31 @@ class Solution(object):
             if c_temp<2*l:
                 break
         return co
+    '''  
+    Problem Statement: Given a Binary Tree and a reference to a root belonging to it. Return the path from the root node to the given leaf node.
+Note: No two nodes in the tree have the same data value and it is assured that the given node is present and a path always exists.
+    '''
+    def root2node(self,root,nodeval):
+        self.ans =[]
+        def inner(root1,new):
+            if root1 is None:
+                return False
+            if root1.val ==nodeval:
+                new.append(root1.val)
+                self.ans =new[:]
+                return True
+            new.append(root1.val)
+            f_l=inner(root1.left,new)
+            f_r =inner(root1.right,new)
+            if f_l or f_r:
+                return True
+            new.pop()
+            return False
+            
+        inner(root,[])
+        return self.ans
+            
+
     #  leetcode:236. Lowest Common Ancestor of a Binary Tree     
     def lowestCommonAncestor(self, root, p, q):
         """
@@ -450,3 +475,4 @@ if __name__=='__main__':
     print(sol.rightSideView(root))
     print(sol.widthOfBinaryTree(root))
     print(sol.flatten(root))
+    print(sol.root2node(root,3))

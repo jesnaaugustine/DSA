@@ -452,8 +452,29 @@ Note: No two nodes in the tree have the same data value and it is assured that t
             target[self.parent[temp[0]]]=temp[1]-1
         return target.keys()[0]
         
-                
+    #construct binary tree from preoder and inoder
+    def buildTree(self, preorder, inorder):
+        """
+        :type preorder: List[int]
+        :type inorder: List[int]
+        :rtype: Optional[TreeNode]
+        """
+        inmap ={}
+        for i in range(len(inorder)):
+            inmap[inorder[i]]=i
+        def inner(instart,inend,prestart,preend):
+            if prestart>preend or instart>inend:
+                return None
+            root = TreeNode(preorder[prestart])
+            temp_instart = instart
+            temp_inend =inmap[preorder[prestart]]
+            temp_prestart = prestart+1
 
+            root.left =inner(instart,temp_inend,prestart+1,prestart+temp_inend-instart)
+            root.right =inner(temp_inend+1,inend,prestart+temp_inend-instart+1,preend)
+
+            return root
+        return inner(0,len(inorder)-1,0,len(preorder)-1)
         
 
         

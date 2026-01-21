@@ -475,7 +475,30 @@ Note: No two nodes in the tree have the same data value and it is assured that t
 
             return root
         return inner(0,len(inorder)-1,0,len(preorder)-1)
-        
+    #build unique tree from inorder and postorder
+    def buildTree(self, inorder, postorder):
+        """
+        :type inorder: List[int]
+        :type postorder: List[int]
+        :rtype: Optional[TreeNode]
+        """
+        idmap ={}
+        for i in range(len(inorder)):
+            idmap[inorder[i]]=i
+        def inner(inorder, is_, ie, postorder, ps, pe, idmap):
+            if ps > pe or is_ > ie:
+                return None
+            root_val = postorder[pe]
+            root = TreeNode(root_val)
+            inRoot = idmap[root_val]
+            numsLeft = inRoot - is_
+            root.left = inner(inorder, is_, inRoot - 1,
+                                    postorder, ps, ps + numsLeft - 1, idmap)
+            root.right = inner(inorder, inRoot + 1, ie,
+                                        postorder, ps + numsLeft, pe - 1, idmap)
+            return root
+        return inner(inorder, 0, len(inorder) - 1,
+                           postorder, 0, len(postorder) - 1, idmap)
 
         
 if __name__=='__main__':

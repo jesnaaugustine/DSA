@@ -76,7 +76,25 @@ def deleteNode(self, root, key):
         parent.right = left_off
     return root
             
-
+def kthSmallest(self, root, k):
+    """
+    :type root: Optional[TreeNode]
+    :type k: int
+    :rtype: int
+    """
+    arr =[]
+    def inner(root_in):
+        if root_in is None:
+            return
+        if len(arr)>=k:
+            return
+        inner(root_in.left)
+        arr.append(root_in.val)
+        inner(root_in.right)
+            
+    inner(root)
+    print(arr)
+    return arr[k-1]
 
 
                     

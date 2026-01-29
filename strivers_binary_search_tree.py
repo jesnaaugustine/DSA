@@ -96,7 +96,23 @@ def kthSmallest(self, root, k):
     print(arr)
     return arr[k-1]
 
+def lowestCommonAncestor(self, root, p, q):
+    """
+    :type root: TreeNode
+    :type p: TreeNode
+    :type q: TreeNode
+    :rtype: TreeNode
+    """
+    temp = root
+    while temp:
+        if temp.val>p.val and temp.val>q.val:
+            temp = temp.left
+        elif temp.val<p.val and temp.val<q.val:
+            temp = temp.right
+        else:
+            return temp
 
+        
                     
 if __name__=='__main__':
     root = TreeNode(val =4,left =None,right =None)

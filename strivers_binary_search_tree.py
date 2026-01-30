@@ -40,7 +40,7 @@ def insertIntoBST(root, val):
     else:
         parent.left = TreeNode(val)
     return root
-def deleteNode(self, root, key):
+def deleteNode(root, key):
     """
     :type root: Optional[TreeNode]
     :type key: int
@@ -76,7 +76,7 @@ def deleteNode(self, root, key):
         parent.right = left_off
     return root
             
-def kthSmallest(self, root, k):
+def kthSmallest(root, k):
     """
     :type root: Optional[TreeNode]
     :type k: int
@@ -96,7 +96,7 @@ def kthSmallest(self, root, k):
     print(arr)
     return arr[k-1]
 
-def lowestCommonAncestor(self, root, p, q):
+def lowestCommonAncestor(root, p, q):
     """
     :type root: TreeNode
     :type p: TreeNode
@@ -111,8 +111,44 @@ def lowestCommonAncestor(self, root, p, q):
             temp = temp.right
         else:
             return temp
+#98. Validate Binary Search Tree
 
-        
+def isValidBST(root):
+    """
+    :type root: Optional[TreeNode]
+    :rtype: bool
+    """
+    ans =[]
+    def inner(root_in):
+        if root_in is None:
+            return 
+        inner(root_in.left)
+        ans.append(root_in.val)
+        inner(root_in.right)
+    inner(root)
+    for i in range(1,len(ans)):
+        if ans[i-1]>=ans[i]:
+            return False
+    return True
+def isValidBST_1(root):
+    """
+    :type root: Optional[TreeNode]
+    :rtype: bool
+    """
+    def inner(root_in,min_r,max_r):
+        if root_in is None:
+            return True
+        if root_in.val<=min_r or root_in.val>=max_r:
+            return False
+        lf = inner(root_in.left,min_r,root_in.val)
+        rg =inner(root_in.right,root_in.val,max_r)
+        if lf and rg:
+            return True
+        else:
+            return False
+    return inner(root,float('-inf'),float('inf'))    
+ 
+            
                     
 if __name__=='__main__':
     root = TreeNode(val =4,left =None,right =None)

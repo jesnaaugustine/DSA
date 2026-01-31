@@ -148,11 +148,32 @@ def isValidBST_1(root):
             return False
     return inner(root,float('-inf'),float('inf'))    
  
-            
-                    
+def bstFromPreorder( preorder):
+    """
+    :type preorder: List[int]
+    :rtype: Optional[TreeNode]
+    """
+    idx =0
+    def inner(preorder,ma_rang):
+        global idx
+        if idx >=len(preorder):
+            return
+        if preorder[idx]>=ma_rang:
+            return
+        val =preorder[idx]
+        root = TreeNode(val)
+        idx = idx+1
+        print(idx)
+        root.left = inner(preorder,val)
+        root.right = inner(preorder,ma_rang)
+        return root
+    return inner(preorder,float('inf'))
+                
 if __name__=='__main__':
     root = TreeNode(val =4,left =None,right =None)
     right = TreeNode(val =6,left =TreeNode(5),right =None)
     root.right =right
     print(searchBST(root, 6))
     print(insertIntoBST(root,3))
+    preorder = [8,5,1,7,10,12]
+    print(bstFromPreorder(preorder))

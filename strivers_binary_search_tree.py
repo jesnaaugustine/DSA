@@ -155,7 +155,7 @@ def bstFromPreorder( preorder):
     """
     idx =0
     def inner(preorder,ma_rang):
-        global idx
+        nonlocal idx
         if idx >=len(preorder):
             return
         if preorder[idx]>=ma_rang:

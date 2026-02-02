@@ -180,42 +180,19 @@ def recoverTree(self, root):
         inner(root_in.left)
         ans.append(root_in.val)
         inner(root_in.right)
-    swap =[0]*2
     inner(root)
-    j =0
-    print(ans)
-    for i in range(1,len(ans)):
-
-        if ans[i-1]>ans[i]and j==0:
-            print(ans[i-1])
-            swap[j] = ans[i-1]
-            j+=1
-        elif ans[i-1]>ans[i]and j==1:
-            print(ans[i-1])
-            swap[j] = ans[i]
-            j+=1
-    temp=root
-    qu=[root]
-    final =0
-    print(swap)
-    while qu:
-        l = len(qu)
-        for x in range(l):
-            if qu[0].val ==swap[0]:
-                qu[0].val = swap[1]
-                final+=1
-            if qu[0].val==swap[1]:
-                qu[0].val = swap[0]
-                final+=1
-            if final==2:
-                return root
-            if qu[0].left is not None:
-                qu.append(qu[0].left)
-            if qu[0].right is not None:
-                qu.append(qu[0].right)
-            qu.pop(0)
+    ans.sort()
+    self.j =0
+    def inner_inorder(root_in):
+        if root_in is None:
+            return
+        inner_inorder(root_in.left)
+        if root_in.val !=ans[self.j]:
+            root_in.val = ans[self.j]
+        self.j+=1
+        inner_inorder(root_in.right)
+    inner_inorder(root)
     return root
-
 
 
 

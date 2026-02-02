@@ -168,7 +168,61 @@ def bstFromPreorder( preorder):
         root.right = inner(preorder,ma_rang)
         return root
     return inner(preorder,float('inf'))
-                
+def recoverTree(self, root):
+    """
+    :type root: Optional[TreeNode]
+    :rtype: None Do not return anything, modify root in-place instead.
+    """
+    ans =[]
+    def inner(root_in):
+        if root_in is None:
+            return
+        inner(root_in.left)
+        ans.append(root_in.val)
+        inner(root_in.right)
+    swap =[0]*2
+    inner(root)
+    j =0
+    print(ans)
+    for i in range(1,len(ans)):
+
+        if ans[i-1]>ans[i]and j==0:
+            print(ans[i-1])
+            swap[j] = ans[i-1]
+            j+=1
+        elif ans[i-1]>ans[i]and j==1:
+            print(ans[i-1])
+            swap[j] = ans[i]
+            j+=1
+    temp=root
+    qu=[root]
+    final =0
+    print(swap)
+    while qu:
+        l = len(qu)
+        for x in range(l):
+            if qu[0].val ==swap[0]:
+                qu[0].val = swap[1]
+                final+=1
+            if qu[0].val==swap[1]:
+                qu[0].val = swap[0]
+                final+=1
+            if final==2:
+                return root
+            if qu[0].left is not None:
+                qu.append(qu[0].left)
+            if qu[0].right is not None:
+                qu.append(qu[0].right)
+            qu.pop(0)
+    return root
+
+
+
+
+
+
+
+        
 if __name__=='__main__':
     root = TreeNode(val =4,left =None,right =None)
     right = TreeNode(val =6,left =TreeNode(5),right =None)

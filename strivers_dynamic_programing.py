@@ -27,8 +27,27 @@ def rob(nums):
     for i in range(2,len(nums)):
         dp[i]=max(dp[i-1],dp[i-2]+nums[i])
     return dp[-1]
+def rob2(nums):
+    """
+    :type nums: List[int]
+    :rtype: int
+    """
+    def robthis(nums):
+        dp=[0]*len(nums)
+        dp[0]=nums[0]
+        dp[1]=max(nums[0],nums[1])
+        for i in range(2,len(nums)):
+            dp[i]= max(dp[i-1],nums[i]+dp[i-2])
+        return dp[-1]
+    if len(nums)<=2:
+        return max(nums)
+    temp1 =nums[:-1]
+    temp2 = nums[1:]
+    return max(robthis(temp1),robthis(temp2))
+    
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
     print(rob(nums))
+    print(rob2(nums))
         

@@ -60,7 +60,21 @@ def FrogJump(nums):
         prev2 = prev1
         prev1 =cur
     return prev1
-    
+def FrogJumpk(nums,k):
+    if len(nums)==0:
+        return 0
+    dp =[]
+    dp.append(0)
+    for i in range(1,len(nums)):
+        temp = float('inf')
+        for j in range(1,k+1):
+            if i-j==-1:
+                break
+            cur = abs(nums[i]-nums[i-j])+dp[i-j]
+            temp = min(temp,cur)
+        dp.append(temp)
+    return dp[-1]
+
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -68,4 +82,7 @@ if __name__ =='__main__':
     print(rob2(nums))
     nums = [2,1,3,5,4]
     print(FrogJump(nums))
+    heights = [15, 4, 1, 14, 15]
+    k = 3
+    print(FrogJumpk(heights,k))
         

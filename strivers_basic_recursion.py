@@ -78,7 +78,27 @@ def fibonacci(N):
     return res
     
 
-
+def combinationSum3(k, n):
+    """
+    :type k: int
+    :type n: int
+    :rtype: List[List[int]]
+    """
+    ans =[]
+    def inner(new,idx):
+        if len(new)==k and sum(new)==n:
+            ans.append(new[:])
+            return
+        if idx ==10:
+            return
+        if len(new)>k:
+            return
+        for i in range(idx,10):
+            new.append(i)
+            inner(new,i+1)
+            new.pop()
+    inner([],1)
+    return ans
     
 
 
@@ -88,4 +108,5 @@ if __name__=='__main__':
     #N_one(3)
     #print(reverse([1,2,3,4]))
     #print(is_palindrome('masam'))
-    print(fibonacci(6))
+    #print(fibonacci(6))
+    print(combinationSum3(9, 45))

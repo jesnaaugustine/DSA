@@ -74,6 +74,16 @@ def FrogJumpk(nums,k):
             temp = min(temp,cur)
         dp.append(temp)
     return dp[-1]
+##
+def Training(nums):
+    dp = nums[0]
+    for i in range(1,len(nums)):
+        dp_temp =[]
+        for j in range(len(nums[i])):
+            temp = [nums[i][j]+dp[k] for k in range(len(dp)) if j!=k]
+            dp_temp.append(max(temp))
+        dp = dp_temp
+    return max(dp)
 
 if __name__ =='__main__':
     print(climbStairs(3))
@@ -85,4 +95,6 @@ if __name__ =='__main__':
     heights = [15, 4, 1, 14, 15]
     k = 3
     print(FrogJumpk(heights,k))
+    matrix =[[70, 40, 10], [180, 20, 5], [200, 60, 30]]
+    print(Training(matrix))
         

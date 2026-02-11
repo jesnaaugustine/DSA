@@ -84,7 +84,21 @@ def Training(nums):
             dp_temp.append(max(temp))
         dp = dp_temp
     return max(dp)
-
+#62. Unique Paths
+def uniquePaths(m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        dp=[1]*n
+        for i in range(1,m):
+            temp_dp = [0]*n
+            temp_dp[0]=1
+            for j in range(1,n):
+                temp_dp[j]=temp_dp[j-1]+dp[j]
+            dp =temp_dp
+        return dp[-1]
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -97,4 +111,5 @@ if __name__ =='__main__':
     print(FrogJumpk(heights,k))
     matrix =[[70, 40, 10], [180, 20, 5], [200, 60, 30]]
     print(Training(matrix))
+    print(uniquePaths(3,7))
         

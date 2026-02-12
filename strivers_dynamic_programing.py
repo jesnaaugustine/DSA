@@ -99,6 +99,28 @@ def uniquePaths(m, n):
                 temp_dp[j]=temp_dp[j-1]+dp[j]
             dp =temp_dp
         return dp[-1]
+def uniquePathsWithObstacles(obstacleGrid):
+        """
+        :type obstacleGrid: List[List[int]]
+        :rtype: int
+        """
+        
+        if obstacleGrid[0][0]==1 or len(obstacleGrid)==0:
+            return 0
+        dp =[1]+([0]*(len(obstacleGrid[0])-1))
+        for i in range(len(obstacleGrid)):
+            dp_temp = []
+            if obstacleGrid[i][0]==1:
+                dp_temp.append(0)
+            else:
+                dp_temp.append(dp[0])
+            for j in range(1,len(obstacleGrid[i])):
+                if obstacleGrid[i][j]==1:
+                    dp_temp.append(0)
+                else:
+                    dp_temp.append(dp_temp[j-1]+dp[j])
+            dp=dp_temp
+        return dp[-1]
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -112,4 +134,6 @@ if __name__ =='__main__':
     matrix =[[70, 40, 10], [180, 20, 5], [200, 60, 30]]
     print(Training(matrix))
     print(uniquePaths(3,7))
+    obstacleGrid =[[0,0,0],[0,1,0],[0,0,0]]      
+    print(uniquePathsWithObstacles(obstacleGrid))
         

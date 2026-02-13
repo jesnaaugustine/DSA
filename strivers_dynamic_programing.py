@@ -121,6 +121,25 @@ def uniquePathsWithObstacles(obstacleGrid):
                     dp_temp.append(dp_temp[j-1]+dp[j])
             dp=dp_temp
         return dp[-1]
+#64. Minimum Path Sum
+def minPathSum(grid):
+    """
+    :type grid: List[List[int]]
+    :rtype: int
+    """
+    dp =[]
+    dp.append(grid[0][0])
+    for i in range(1,len(grid[0])):
+        dp.append(dp[i-1]+grid[0][i])
+    #print(dp)
+    for j in range(1,len(grid)):
+        dp_temp=[]
+        dp_temp.append(dp[0]+grid[j][0])
+        for k in range(1,len(grid[j])):
+            dp_temp.append(grid[j][k]+min(dp_temp[k-1],dp[k]))
+        dp =dp_temp
+    return dp[-1]
+
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -136,4 +155,7 @@ if __name__ =='__main__':
     print(uniquePaths(3,7))
     obstacleGrid =[[0,0,0],[0,1,0],[0,0,0]]      
     print(uniquePathsWithObstacles(obstacleGrid))
+    grid = [[1,3,1],[1,5,1],[4,2,1]]
+    print(minPathSum(grid))
+
         

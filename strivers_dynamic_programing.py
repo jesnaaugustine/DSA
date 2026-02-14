@@ -139,7 +139,32 @@ def minPathSum(grid):
             dp_temp.append(grid[j][k]+min(dp_temp[k-1],dp[k]))
         dp =dp_temp
     return dp[-1]
+def minimumTotal(triangle):
+    # Start from second last row
+    for row in range(len(triangle) - 2, -1, -1):
+        for col in range(len(triangle[row])):
+            triangle[row][col] += min(
+                triangle[row + 1][col],
+                triangle[row + 1][col + 1]
+            )
+    
+    return triangle[0][0]
 
+def minimumTotal_1(triangle):
+    """
+    :type triangle: List[List[int]]
+    :rtype: int
+    """
+    dp=triangle[0]
+    for i in range(1,len(triangle)):
+        dp_temp =[]
+        dp_temp.append(dp[0]+triangle[i][0])
+        for k in range(1,len(triangle[i])-1):
+            dp_temp.append(triangle[i][k]+min(dp[k-1],dp[k]))
+        dp_temp.append(dp[-1]+triangle[i][-1])
+        dp=dp_temp
+    return min(dp)
+        
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -157,5 +182,8 @@ if __name__ =='__main__':
     print(uniquePathsWithObstacles(obstacleGrid))
     grid = [[1,3,1],[1,5,1],[4,2,1]]
     print(minPathSum(grid))
+    triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
+    print(minimumTotal_1(triangle))
+
 
         

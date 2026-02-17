@@ -164,7 +164,30 @@ def minimumTotal_1(triangle):
         dp_temp.append(dp[-1]+triangle[i][-1])
         dp=dp_temp
     return min(dp)
-        
+def canPartition(nums):
+    """
+    :type nums: List[int]
+    :rtype: bool
+    """
+    total =sum(nums)
+    if total%2==1:
+        return False
+    def inner(new_l,new_r,ind):
+        if ind==len(nums):
+            return False
+        if new_l==new_r:
+            return True
+        for i in range(ind,len(nums)):
+            new_l +=nums[i]
+            new_r -=nums[i]
+            flag =inner(new_l,new_r,i+1)
+            if flag:
+                return flag
+            new_l-=nums[i]
+            new_r +=nums[i]
+        return False
+    return inner(0,sum(nums),0)
+    
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -184,6 +207,7 @@ if __name__ =='__main__':
     print(minPathSum(grid))
     triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
     print(minimumTotal_1(triangle))
+    print(canPartition(nums))
 
 
         

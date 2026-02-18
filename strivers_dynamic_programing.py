@@ -187,6 +187,29 @@ def canPartition(nums):
             new_r +=nums[i]
         return False
     return inner(0,sum(nums),0)
+def canPartition_1(nums):
+    """
+    :type nums: List[int]
+    :rtype: bool
+    """
+    total = sum(nums)
+    if total%2==1:
+        return False
+    target = total//2
+    dp =[[False]*(target+1) for i in range(len(nums))]
+    for i in range(len(nums)):
+        dp[i][0]=True
+    if nums[0]<=target:
+        dp[0][nums[0]]=True
+    for i in range(1,len(nums)):
+        for j in range(1,target+1):
+            take= False
+            if nums[i]<=j:
+                take= dp[i-1][j-nums[i]]
+
+            not_take = dp[i-1][j]
+            dp[i][j]= take or not_take
+    return dp[-1][-1]
     
 if __name__ =='__main__':
     print(climbStairs(3))
@@ -207,7 +230,7 @@ if __name__ =='__main__':
     print(minPathSum(grid))
     triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
     print(minimumTotal_1(triangle))
-    print(canPartition(nums))
+    print(canPartition_1(nums))
 
 
         

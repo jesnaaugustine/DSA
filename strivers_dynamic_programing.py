@@ -210,6 +210,45 @@ def canPartition_1(nums):
             not_take = dp[i-1][j]
             dp[i][j]= take or not_take
     return dp[-1][-1]
+def findContentChildren( g, s):
+    """
+    :type g: List[int]
+    :type s: List[int]
+    :rtype: int
+    """
+    j=0
+    s.sort()
+    g.sort()
+    for i in range(len(s)):
+        if j <len(g) and g[j]<=s[i]:
+            j+=1
+    return j
+def coinChange(coins, amount):
+    """
+    :type coins: List[int]
+    :type amount: int
+    :rtype: int
+    """
+    coins.sort()
+    dp=[0]*(amount+1)
+    for i in range(amount+1):
+        if i%coins[0]==0:
+            dp[i]=i//coins[0]
+        else:
+            dp[i]=2**33
+    for c in range(1,len(coins)):
+        temp_dp=[]
+        for t in range(amount+1):
+            not_take = dp[t]
+            take = float('inf')
+            if coins[c]<=t:
+                take = temp_dp[t-coins[c]]+1
+            temp_dp.append(min(take,not_take))
+        dp=temp_dp
+    if dp[-1]>2**32:
+        return -1
+    else:
+        return dp[-1]
     
 if __name__ =='__main__':
     print(climbStairs(3))
@@ -231,6 +270,9 @@ if __name__ =='__main__':
     triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
     print(minimumTotal_1(triangle))
     print(canPartition_1(nums))
+    coins =[186,419,83,408]
+    amount=6249
+    print(coinChange(coins,amount))
 
 
         

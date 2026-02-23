@@ -249,7 +249,54 @@ def coinChange(coins, amount):
         return -1
     else:
         return dp[-1]
-    
+
+def minimumDifference( nums):
+    """
+    :type nums: List[int]
+    :rtype: int
+    """
+    global_min = float('inf')
+    total = sum(nums)
+    def inner(new,s,ind,t):
+        nonlocal global_min
+        if ind ==len(nums)+1:
+            return
+        if len(new) !=0 and len(new)!=len(nums) and abs(2*s-t)<global_min:
+            global_min=abs(2*s-t)
+        for i in range(ind,len(nums)):
+            s+=nums[i]
+            new.append(nums[i])
+            inner(new,s,i+1,t)
+            new.pop()
+            s-=nums[i]
+            
+    inner([nums[0]],nums[0],1,total)
+    return global_min
+
+def minDifference_2(nums):
+    global_min=float('inf')
+    total = sum(nums)
+    dp=[False]*(total+1)
+    dp[0]=True
+    if nums[0]<=total:
+        dp[nums[0]]=True
+    for i in range(1,len(nums)):
+        temp_dp = [False]*(total+1)
+        temp_dp[0]=True
+        for j in range(1,total+1):
+            not_take = dp[j]
+            take =False
+            if nums[i]<=j:
+                take = dp[j-nums[i]]
+            temp_dp[j]=take or not_take
+        dp=temp_dp
+    for i in range(len(dp)-1):
+        if dp[i]:
+            global_min=min(global_min,abs(2*i-total))
+    return global_min
+
+
+
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -273,6 +320,9 @@ if __name__ =='__main__':
     coins =[186,419,83,408]
     amount=6249
     print(coinChange(coins,amount))
+    nums = [76,8,45,20,74,84,28,1]
+    print(minimumDifference( nums))
+    print(minDifference_2(nums))
 
 
         

@@ -295,6 +295,23 @@ def minDifference_2(nums):
             global_min=min(global_min,abs(2*i-total))
     return global_min
 
+def count_subset_sum(nums,k):
+    n =len(nums)
+    dp = [0]*(k+1)
+    if nums[0]<=k:
+        dp[nums[0]]=1
+    dp[0]=1
+    for i in range(1,n):
+        temp_dp= [0]*(k+1)
+        temp_dp[0]=1
+        for j in range(1,k+1):
+            not_take = dp[j]
+            take =0
+            if nums[i]<=j:
+                take = dp[j-nums[i]]
+            temp_dp[j]=take+not_take
+        dp=temp_dp
+    return dp[-1]
 
 
 if __name__ =='__main__':
@@ -323,6 +340,8 @@ if __name__ =='__main__':
     nums = [76,8,45,20,74,84,28,1]
     print(minimumDifference( nums))
     print(minDifference_2(nums))
+    nums =[1, 2, 3, 4, 5]
+    print(f'count_sum: {count_subset_sum(nums,5)}')
 
 
         

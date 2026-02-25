@@ -312,6 +312,32 @@ def count_subset_sum(nums,k):
             temp_dp[j]=take+not_take
         dp=temp_dp
     return dp[-1]
+def findTargetSumWays(nums, target):
+    """
+    :type nums: List[int]
+    :type target: int
+    :rtype: int
+    """
+    total = sum(nums)
+    if (target+total)%2==1 or abs(target) > total:
+        return 0
+    new = (target+total)//2
+    dp = [0]*(new+1)
+    dp[0]=1
+    if nums[0]<=new:
+        dp[nums[0]]+=1
+    for i in range(1,len(nums)):
+        temp_dp=[0]*(new+1)
+        for t in range(new+1):
+            take = 0
+            if nums[i]<=t:
+                take = dp[t-nums[i]]
+            not_take = dp[t]
+            temp_dp[t]=take+not_take
+        dp=temp_dp
+        
+    return dp[-1]
+
 
 
 if __name__ =='__main__':
@@ -342,6 +368,9 @@ if __name__ =='__main__':
     print(minDifference_2(nums))
     nums =[1, 2, 3, 4, 5]
     print(f'count_sum: {count_subset_sum(nums,5)}')
+    nums = [1]
+    target = 1
+    print(findTargetSumWays(nums,target))
 
 
         

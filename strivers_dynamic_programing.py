@@ -337,8 +337,27 @@ def findTargetSumWays(nums, target):
         dp=temp_dp
         
     return dp[-1]
-
-
+##518. Coin Change II
+def change(amount, coins):
+    """
+    :type amount: int
+    :type coins: List[int]
+    :rtype: int
+    """
+    dp=[0]*(amount+1)
+    for i in range(amount+1):   
+        if i%coins[0]==0:
+            dp[i]=1
+    for i in range(1,len(coins)):
+        dp_temp=[0]*(amount+1)
+        for k in range(amount+1):
+            take = 0
+            if coins[i]<=k:
+                take = dp_temp[k-coins[i]]
+            not_take = dp[k]
+            dp_temp[k]=take +not_take
+        dp=dp_temp
+    return dp[-1]
 
 if __name__ =='__main__':
     print(climbStairs(3))
@@ -371,6 +390,7 @@ if __name__ =='__main__':
     nums = [1]
     target = 1
     print(findTargetSumWays(nums,target))
+    print(change(5,[1,2,5]))
 
 
         

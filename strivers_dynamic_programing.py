@@ -359,6 +359,22 @@ def change(amount, coins):
         dp=dp_temp
     return dp[-1]
 
+def unboundKnapsack(W,val,wt):
+    dp =[0]*(W+1)
+    for i in range(W+1):
+        if i%wt[0]==0:
+            dp[i]=(i//wt[0])*val[0]
+    for i in range(1,len(wt)):
+        temp_dp=[0]*(W+1)
+        for j in range(W+1):
+            take =0
+            if wt[i]<=j:
+                take = temp_dp[j-wt[i]]+val[i]
+            not_take = dp[j]
+            temp_dp[j]=max(take,not_take)
+        dp=temp_dp
+    return dp[-1]
+
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -391,6 +407,10 @@ if __name__ =='__main__':
     target = 1
     print(findTargetSumWays(nums,target))
     print(change(5,[1,2,5]))
+    W=3
+    val =[4,2]
+    wt =[2,1]
+    print(unboundKnapsack(W,val,wt))
 
 
         

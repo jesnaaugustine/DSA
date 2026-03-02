@@ -374,7 +374,19 @@ def unboundKnapsack(W,val,wt):
             temp_dp[j]=max(take,not_take)
         dp=temp_dp
     return dp[-1]
-
+def LCS(s1,s2):
+    n=len(s1)
+    m=len(s2)
+    dp=[0]*(m+1)
+    for i in range(1,n+1):
+        temp_dp=[0]*(m+1)
+        for j in range(1,m+1):
+            if s1[i-1]==s2[j-1]:
+                temp_dp[j]=1+dp[j]
+            else:
+                temp_dp[j]=max(dp[j],temp_dp[j-1])
+        dp=temp_dp
+    return dp[-1]
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -411,6 +423,9 @@ if __name__ =='__main__':
     val =[4,2]
     wt =[2,1]
     print(unboundKnapsack(W,val,wt))
+    s1 ="abcd"
+    s2 ="bdef"
+    print(LCS(s1,s2))
 
 
         

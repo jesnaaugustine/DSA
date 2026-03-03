@@ -382,11 +382,26 @@ def LCS(s1,s2):
         temp_dp=[0]*(m+1)
         for j in range(1,m+1):
             if s1[i-1]==s2[j-1]:
-                temp_dp[j]=1+dp[j]
+                temp_dp[j]=1+dp[j-1]
             else:
                 temp_dp[j]=max(dp[j],temp_dp[j-1])
         dp=temp_dp
     return dp[-1]
+def LCS_1(s1,s2):
+    n=len(s1)
+    m=len(s2)
+    dp=[0]*(m+1)
+    ans =[]
+    for i in range(1,n+1):
+        temp_dp=[0]*(m+1)
+        for j in range(1,m+1):
+            if s1[i-1]==s2[j-1]:
+                temp_dp[j]=1+dp[j-1]
+                ans.append(s1[i-1])
+            else:
+                temp_dp[j]=max(dp[j],temp_dp[j-1])
+        dp=temp_dp
+    return ''.join(ans)
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -423,9 +438,10 @@ if __name__ =='__main__':
     val =[4,2]
     wt =[2,1]
     print(unboundKnapsack(W,val,wt))
-    s1 ="abcd"
-    s2 ="bdef"
+    s1 ="abcde"
+    s2 ="wxy"
     print(LCS(s1,s2))
+    print(LCS_1(s1,s2))
 
 
         

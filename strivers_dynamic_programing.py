@@ -416,8 +416,26 @@ def lon_substring(s1,s2):
         dp =temp_dp
         
     return ans
-            
+ ##516. Longest Palindromic Subsequence           
+def longestPalindromeSubseq(s):
+    """
+    :type s: str
+    :rtype: int
+    """
+    s2= s[::-1]
+    m= len(s)
+    dp = [0]*(m+1)
+    for i in range(1,m+1):
+        temp_dp =[0]*(m+1)
+        for j in range(1,m+1):
+            if s[i-1]==s2[j-1]:
+                temp_dp[j]=1+dp[j-1]
+            else:
+                temp_dp[j]=max(temp_dp[j-1],dp[j])
+        dp=temp_dp
+    return dp[-1]
 
+    
 
 
 if __name__ =='__main__':
@@ -461,6 +479,8 @@ if __name__ =='__main__':
     print(LCS(s1,s2))
     print(LCS_1(s1,s2))
     print(lon_substring(s1,s2))
+    s ='bbbab'
+    print(longestPalindromeSubseq(s))
 
 
         

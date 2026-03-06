@@ -434,7 +434,24 @@ def longestPalindromeSubseq(s):
                 temp_dp[j]=max(temp_dp[j-1],dp[j])
         dp=temp_dp
     return dp[-1]
-
+##1312. Minimum Insertion Steps to Make a String Palindrome
+def minInsertions(s):
+    """
+    :type s: str
+    :rtype: int
+    """
+    s1 = s[::-1]
+    m = len(s)
+    dp =[0]*(m+1)
+    for i in range(1,m+1):
+        temp_dp=[0]*(m+1)
+        for j in range(1,m+1):
+            if s[i-1]==s1[j-1]:
+                temp_dp[j]= dp[j-1]+1
+            else:
+                temp_dp[j]=max(temp_dp[j-1],dp[j])
+        dp=temp_dp
+    return len(s)-temp_dp[-1]
     
 
 
@@ -481,6 +498,9 @@ if __name__ =='__main__':
     print(lon_substring(s1,s2))
     s ='bbbab'
     print(longestPalindromeSubseq(s))
+    s ="leetcode"
+    print(minInsertions(s))
+
 
 
         

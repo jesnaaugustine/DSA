@@ -453,7 +453,25 @@ def minInsertions(s):
         dp=temp_dp
     return len(s)-temp_dp[-1]
     
-
+def minDistance( word1, word2):
+    """
+    :type word1: str
+    :type word2: str
+    :rtype: int
+    """
+    n=len(word1)
+    m=len(word2)
+    dp=[0]*(m+1)
+    for i in range(1,n+1):
+        temp_dp=[0]*(m+1)
+        for j in range(1,m+1):
+            if word1[i-1]==word2[j-1]:
+                temp_dp[j]=dp[j-1]+1
+            else:
+                temp_dp[j]=max(dp[j],temp_dp[j-1])
+        dp =temp_dp
+    return (m+n-2*dp[-1])
+    
 
 if __name__ =='__main__':
     print(climbStairs(3))
@@ -500,6 +518,9 @@ if __name__ =='__main__':
     print(longestPalindromeSubseq(s))
     s ="leetcode"
     print(minInsertions(s))
+    word1 = "leetcode"
+    word2 = "etco"
+    print(minDistance(word1,word2))
 
 
 

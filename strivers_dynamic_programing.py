@@ -472,7 +472,31 @@ def minDistance( word1, word2):
         dp =temp_dp
     return (m+n-2*dp[-1])
     
+def shortsub(str1,str2):
+    ans =[]
+    cur = [0,0]
+    n = len(str1)
+    m=len(str2)
+    dp =[0]*(m+1)
+    for i in range(1,n+1):
+        temp_dp =[0]*(m+1)
+        for j in range(1,(m+1)):
+            if str1[i-1]==str2[j-1]:
+                temp_dp[j]=dp[j-1]+1
+                ans.append(str2[cur[1]:j-1])
+                cur[1]=j
+                ans.append(str1[i-1])
+            else:
+                temp_dp[j]=max(temp_dp[j-1],dp[j])
+        if temp_dp[-1]==cur[0]:
+            ans.append(str1[i-1])
+        else:
+            cur[0]=dp[-1]
+    ans.append(str2[cur[1]:])
+    return ''.join(ans)
 
+
+        
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -521,6 +545,9 @@ if __name__ =='__main__':
     word1 = "leetcode"
     word2 = "etco"
     print(minDistance(word1,word2))
+    str1 = "dynamic"
+    str2 = "program"
+    print(shortsub(str1,str2))
 
 
 

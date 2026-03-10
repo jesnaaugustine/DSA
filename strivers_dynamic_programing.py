@@ -480,19 +480,24 @@ def shortsub(str1,str2):
     dp =[0]*(m+1)
     for i in range(1,n+1):
         temp_dp =[0]*(m+1)
+        ins =False
         for j in range(1,(m+1)):
             if str1[i-1]==str2[j-1]:
                 temp_dp[j]=dp[j-1]+1
                 ans.append(str2[cur[1]:j-1])
                 cur[1]=j
-                ans.append(str1[i-1])
+                if not ins:
+                    ans.append(str1[i-1])
+                    ins =True
+                
             else:
                 temp_dp[j]=max(temp_dp[j-1],dp[j])
         if temp_dp[-1]==cur[0]:
             ans.append(str1[i-1])
         else:
             cur[0]=dp[-1]
-    ans.append(str2[cur[1]:])
+    if temp_dp[-1]==cur[0]:
+        ans.append(str2[cur[1]:])
     return ''.join(ans)
 
 

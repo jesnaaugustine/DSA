@@ -472,34 +472,46 @@ def minDistance( word1, word2):
         dp =temp_dp
     return (m+n-2*dp[-1])
     
-def shortsub(str1,str2):
+def shortestCommonSupersequence(str1, str2):
+    """
+    :type str1: str
+    :type str2: str
+    :rtype: str
+    """
     ans =[]
     cur = [0,0]
     n = len(str1)
     m=len(str2)
-    dp =[0]*(m+1)
+    dp =[[0]*(m+1) for _ in range(n+1)]
     for i in range(1,n+1):
-        temp_dp =[0]*(m+1)
-        ins =False
         for j in range(1,(m+1)):
             if str1[i-1]==str2[j-1]:
-                temp_dp[j]=dp[j-1]+1
-                ans.append(str2[cur[1]:j-1])
-                cur[1]=j
-                if not ins:
-                    ans.append(str1[i-1])
-                    ins =True
+                dp[i][j]=dp[i-1][j-1]+1
                 
             else:
-                temp_dp[j]=max(temp_dp[j-1],dp[j])
-        if temp_dp[-1]==cur[0]:
+                dp[i][j]=max(dp[i][j-1],dp[i-1][j])
+    i=n
+    j=m
+    while i>0 and j>0:
+        if str1[i-1]==str2[j-1]:
             ans.append(str1[i-1])
+            i-=1
+            j-=1
+        elif dp[i][j-1]>dp[i-1][j]:
+            ans.append(str2[j-1])
+            j-=1
         else:
-            cur[0]=dp[-1]
-    if temp_dp[-1]==cur[0]:
-        ans.append(str2[cur[1]:])
-    return ''.join(ans)
-
+            ans.append(str1[i-1])
+            i-=1
+    while i>0:
+        ans.append(str1[i-1])
+        i-=1
+    while j>0:
+        ans.append(str2[j-1])
+        j-=1
+    re_ans = ans[::-1]
+    return ''.join(re_ans)
+        
 
         
 if __name__ =='__main__':
@@ -552,7 +564,7 @@ if __name__ =='__main__':
     print(minDistance(word1,word2))
     str1 = "dynamic"
     str2 = "program"
-    print(shortsub(str1,str2))
+    print(shortestCommonSupersequence(str1,str2))
 
 
 

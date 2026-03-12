@@ -563,7 +563,7 @@ if __name__ =='__main__':
     word2 = "etco"
     print(minDistance(word1,word2))
     str1 = "dynamic"
-    str2 = "program"
+    str2 = "dyamic"
     print(shortestCommonSupersequence(str1,str2))
 
 

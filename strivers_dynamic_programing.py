@@ -551,7 +551,32 @@ def minDistance( word1, word2):
         dp=temp_dp
     return dp[-1]
 
-        
+def isMatch(s, p):
+    """
+    :type s: str
+    :type p: str
+    :rtype: bool
+    """
+    m=len(s)
+    n=len(p)
+    dp=[False]*(n+1)
+    dp[0]=True
+    for i in range(1,n+1):
+        if p[i-1] !='*':
+            break
+        dp[i]=True
+    for i in range(1,m+1):
+        temp_dp =[False]*(n+1)
+        for j in range(1,n+1):
+            if s[i-1]==p[j-1]:
+                temp_dp[j] = dp[j-1]
+            elif p[j-1]=='?':
+                temp_dp[j] =dp[j-1]
+            elif p[j-1]=='*':
+                temp_dp[j] = temp_dp[j-1] or dp[j]
+        dp = temp_dp
+    return dp[-1]
+    
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -609,6 +634,9 @@ if __name__ =='__main__':
     word1 = "horse"
     word2 = "ros"
     print(minDistance(word1,word2))
+    s ='adceb'
+    t ='*a*b'
+    print(isMatch(s,t))
 
 
 

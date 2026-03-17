@@ -531,7 +531,25 @@ def numDistinct(s, t):
                 temp_dp[j]=dp[j]
         dp=temp_dp
     return dp[-1]
-    
+def minDistance( word1, word2):
+    """
+    :type word1: str
+    :type word2: str
+    :rtype: int
+    """
+    m = len(word1)
+    n= len(word2)
+    dp =[i for i in range(n+1)]
+    for i in range(1,m+1):
+        temp_dp =[0]*(n+1)
+        temp_dp[0]=i
+        for j in range(1,n+1):
+            if word1[i-1]==word2[j-1]:
+                temp_dp[j]=dp[j-1]
+            else:
+                temp_dp[j]=min(dp[j],dp[j-1],temp_dp[j-1])+1
+        dp=temp_dp
+    return dp[-1]
 
         
 if __name__ =='__main__':
@@ -588,6 +606,9 @@ if __name__ =='__main__':
     s ='babgbag'
     t ='bag'
     print(numDistinct(s,t))
+    word1 = "horse"
+    word2 = "ros"
+    print(minDistance(word1,word2))
 
 
 

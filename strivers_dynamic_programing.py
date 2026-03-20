@@ -576,7 +576,21 @@ def isMatch(s, p):
                 temp_dp[j] = temp_dp[j-1] or dp[j]
         dp = temp_dp
     return dp[-1]
-    
+def maxProfit( prices):
+    """
+    :type prices: List[int]
+    :rtype: int
+    """
+    dp=[0]*(2)
+    dp[0]=0
+    dp[1]=-1*prices[0]
+    for i in range(1,len(prices)):
+        temp_dp =[0]*(2)
+        temp_dp[0]=max(dp[0],dp[1]+prices[i])
+        temp_dp[1]=max(dp[1],dp[0]-prices[i])
+        dp=temp_dp
+    return dp[0]
+        
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -637,6 +651,8 @@ if __name__ =='__main__':
     s ='adceb'
     t ='*a*b'
     print(isMatch(s,t))
+    prices = [7,1,5,3,6,4]
+    print(maxProfit(prices))
 
 
 

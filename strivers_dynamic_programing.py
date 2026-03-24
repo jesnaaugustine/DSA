@@ -590,7 +590,31 @@ def maxProfit( prices):
         temp_dp[1]=max(dp[1],dp[0]-prices[i])
         dp=temp_dp
     return dp[0]
-        
+
+
+def maxProfit_trans_limit(prices):
+    """
+    :type prices: List[int]
+    :rtype: int
+    """
+    dp =[[0]*2 for i in range(3)]
+    for k in range(3):
+        dp[k][1]=-1*prices[0]
+    for i in range(1,len(prices)):
+        temp_dp =[[0]*2 for _  in range(3)]
+        for j in range(2):
+            for k in range(1,3):
+                if j==1:
+                    b=dp[k-1][0]-prices[i]
+                    n_b =dp[k][1]
+                    temp_dp[k][j]=max(b,n_b)
+                else:
+                    
+                    s=dp[k][1]+prices[i]
+                    n_s =dp[k][0]
+                    temp_dp[k][j]=max(s,n_s)
+        dp=temp_dp
+    return dp[2][0]
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -653,7 +677,6 @@ if __name__ =='__main__':
     print(isMatch(s,t))
     prices = [7,1,5,3,6,4]
     print(maxProfit(prices))
+    print(maxProfit_trans_limit(prices))
 
 
-
-        

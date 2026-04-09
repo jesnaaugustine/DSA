@@ -615,6 +615,18 @@ def maxProfit_trans_limit(prices):
                     temp_dp[k][j]=max(s,n_s)
         dp=temp_dp
     return dp[2][0]
+
+
+def LongestIncreSubseq(nums):
+    dp =[1]*len(nums)
+    for i in range(1,len(nums)):
+        for j in range(i):
+            if nums[j]<nums[i]:
+                dp[i]= max(dp[i],dp[j]+1)
+    return max(dp)
+
+
+
 if __name__ =='__main__':
     print(climbStairs(3))
     nums =[1,2,3,1]
@@ -678,5 +690,7 @@ if __name__ =='__main__':
     prices = [7,1,5,3,6,4]
     print(maxProfit(prices))
     print(maxProfit_trans_limit(prices))
+    nums = [0, 1, 0, 3, 2, 3]   
+    print(LongestIncreSubseq(nums))
 
 

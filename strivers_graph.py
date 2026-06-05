@@ -15,6 +15,21 @@ def bfs(graph,start_node):
         qu.pop(0)
     return ans
         
+def dfs(graph,start_node):
+    ans =[]
+    visited=set()
+    def inner(gr,start):
+        if start in visited:
+            return
+        ans.append(start)
+        visited.add(start)
+        for i in graph[start]:
+            if i not in visited:
+                inner(gr,i)
+    inner(graph,start_node)
+    return ans
+
+
 
 
 
@@ -27,4 +42,5 @@ if __name__=='__main__':
     'E': ['B', 'F'],
     'F': ['C', 'E']
 }
-    print(bfs(graph,'A'))
+    #print(bfs(graph,'A'))
+    print(dfs(graph,'A'))

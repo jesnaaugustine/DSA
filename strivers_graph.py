@@ -55,6 +55,44 @@ def components(V,E):
             dfs(graph,i)
             comp+=1
     return comp
+##letcode-994. Rotting Oranges
+def orangesRotting(grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        m=len(grid)
+        n=len(grid[0])
+        is_visited =[[0 for _ in range(n)] for _ in range(m)]
+        min_time=0
+        qu=[]
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j]==2:
+                    qu.append(((i,j),0))
+                    is_visited[i][j]=2
+        while qu:
+            k=qu[0][0][0]
+            l=qu[0][0][1]
+            min_time=max(min_time,qu[0][1])
+            if k-1>=0 and grid[k-1][l]==1 and is_visited[k-1][l]!=2:
+                qu.append(((k-1,l),qu[0][1]+1))
+                is_visited[k-1][l]=2
+            if k+1<len(grid) and grid[k+1][l]==1 and is_visited[k+1][l]!=2:
+                qu.append(((k+1,l),qu[0][1]+1))
+                is_visited[k+1][l]=2
+            if l-1>=0 and grid[k][l-1]==1 and is_visited[k][l-1]!=2:
+                qu.append(((k,l-1),qu[0][1]+1))
+                is_visited[k][l-1]=2
+            if l+1<len(grid[0]) and grid[k][l+1]==1 and is_visited[k][l+1]!=2:
+                qu.append(((k,l+1),qu[0][1]+1))
+                is_visited[k][l+1]=2
+            qu.pop(0)
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j]==1 and is_visited[i][j]==0:
+                    return -1
+        return min_time
 
 
 if __name__=='__main__':
@@ -71,3 +109,5 @@ if __name__=='__main__':
     V = 4
     edges = [[0,1],[1,2]]
     print(components(V,edges))
+    grid = [[2,1,1],[1,1,0],[0,1,1]]
+    print(orangesRotting(grid))

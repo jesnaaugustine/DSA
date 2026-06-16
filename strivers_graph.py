@@ -93,6 +93,56 @@ def orangesRotting(grid):
                 if grid[i][j]==1 and is_visited[i][j]==0:
                     return -1
         return min_time
+#detecting cycle keep the parent along with node in the queue. If the neighbour node is visisted and its not equal to parent node then return tru
+# becoz its visisted by other node due to cycle. Same approch for both BFS and DFS
+def iscycle(graph):
+    is_visited=set()
+    
+    def bfs(graph,queue):
+        nonlocal is_visited
+        while queue:
+            cur = queue.pop(0)
+            for ng in graph[cur[0]]:
+                if ng not in is_visited:
+                    queue.append((ng,cur[0]))
+                    is_visited.add(ng)
+                elif ng in is_visited and cur[1]!=ng:
+                    return True
+        return False
+    for st in graph:
+        if st not in is_visited:
+            is_visited.add(st)
+            flag=bfs(graph,[(st,-1)])
+            if flag:
+                return flag
+                
+    return False
+
+def isCycle_dfs(graph):
+    is_visited=set()
+    def dfs(graph,start):
+        if start[0] in is_visited:
+            return True
+        is_visited.add(start[0])
+
+        
+        for ng in graph[start[0]]:
+            
+            flag =False
+            if ng !=start[1]:
+                flag = dfs(graph,(ng,start[0]))
+            if flag:
+                return flag
+    for k in graph:
+        if k not in is_visited:
+            flag =dfs(graph,(k,-1))
+            if flag:
+                return flag
+    return False
+
+        
+
+
 
 
 if __name__=='__main__':
@@ -111,3 +161,7 @@ if __name__=='__main__':
     print(components(V,edges))
     grid = [[2,1,1],[1,1,0],[0,1,1]]
     print(orangesRotting(grid))
+    gr ={1:[2],2:[1,3],3:[2],4:[5,6],5:[4,6],6:[4,5],7:[8],8:[7]}
+    gr_notcylce ={1:[2,3],2:[5,6],3:[4,7],4:[3],5:[2],6:[2],7:[3,8],8:[7]}
+    #print(iscycle(gr))
+    print(isCycle_dfs(gr_notcylce))

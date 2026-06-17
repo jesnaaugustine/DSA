@@ -124,10 +124,7 @@ def isCycle_dfs(graph):
         if start[0] in is_visited:
             return True
         is_visited.add(start[0])
-
-        
         for ng in graph[start[0]]:
-            
             flag =False
             if ng !=start[1]:
                 flag = dfs(graph,(ng,start[0]))
@@ -139,6 +136,52 @@ def isCycle_dfs(graph):
             if flag:
                 return flag
     return False
+
+def isCycle_directed(graph):
+    is_visited=set()
+    is_pathvisited=set()
+    def inner(gr,start):
+        if start in is_visited and start in is_pathvisited:
+            return True
+        is_visited.add(start)
+        is_pathvisited.add(start)
+        for ng in gr[start]:
+            flag = False
+            flag = inner(gr,ng)
+            if flag:
+                return flag
+            is_pathvisited.remove(ng)
+    for i in graph:
+        if i not in is_visited:
+            f = inner(graph,i)
+            if f:
+                return f
+    return False
+#207. Course Schedule
+def canFinish(numCourses, prerequisites):
+    graph ={k:[] for k in range(numCourses)}
+    for pre in prerequisites:  
+        graph[pre[1]].append(pre[0])
+    
+    is_visited =set()
+    is_pathvisited =set()
+    def dfs(gr,start):
+        if start[0] in is_visited and start[0] in is_pathvisited:
+            return True
+        is_visited.add(start[0])
+        is_pathvisited.add(start[0])
+        for ng in gr[start[0]]:
+            flag = dfs(gr,(ng,start[0]))
+            if flag:
+                return flag
+            is_pathvisited.remove(ng)
+    for i in range(numCourses):
+        if i not in is_visited:
+            flag =dfs(graph,(i,-1))
+            if flag:
+                return not flag
+            is_pathvisited.remove(i)
+    return True
 
         
 
@@ -165,3 +208,7 @@ if __name__=='__main__':
     gr_notcylce ={1:[2,3],2:[5,6],3:[4,7],4:[3],5:[2],6:[2],7:[3,8],8:[7]}
     #print(iscycle(gr))
     print(isCycle_dfs(gr_notcylce))
+    directedgraph_cycle ={1:[2],2:[3],3:[4,7],4:[5],5:[6],6:[],7:[5],8:[9],9:[10],10:[8]}
+    directedgraph_notcycle={1:[2],2:[3],3:[4,7],4:[5],5:[6],6:[],7:[5],8:[9],9:[10],10:[]}
+    print(isCycle_directed(directedgraph_notcycle))
+

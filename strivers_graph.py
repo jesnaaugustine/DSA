@@ -183,8 +183,43 @@ def canFinish(numCourses, prerequisites):
             is_pathvisited.remove(i)
     return True
 
-        
+#542. 01 Matrix
+def updateMatrix(mat):
+    """
+    :type mat: List[List[int]]
+    :rtype: List[List[int]]
+    """
+    row = len(mat)
+    column = len(mat[0])
+    ans =[[0 for _ in range(column)] for _ in range(row)]
+    visisted =set()
+    qu=[]
+    for i in range(row):
+        for j in range(column):
+            if mat[i][j]==0:
+                qu.append(((i,j),0))
+                visisted.add((i,j))
+    while qu:
+        cur = qu.pop(0)
+        c_r =cur[0][0]
+        c_c =cur[0][1]
+        ans[c_r][c_c]=cur[1]
+        if c_r-1>=0 and (c_r-1,c_c) not in visisted:
+            qu.append(((c_r-1,c_c),cur[1]+1))
+            visisted.add((c_r-1,c_c))
+        if c_r+1<row and (c_r+1,c_c) not in visisted:
+            qu.append(((c_r+1,c_c),cur[1]+1))
+            visisted.add((c_r+1,c_c))
+        if c_c-1>=0 and (c_r,c_c-1) not in visisted:
+            qu.append(((c_r,c_c-1),cur[1]+1))
+            visisted.add((c_r,c_c-1))
+        if c_c+1<column and (c_r,c_c+1) not in visisted:
+            qu.append(((c_r,c_c+1),cur[1]+1))
+            visisted.add((c_r,c_c+1))
+    return ans
 
+
+    
 
 
 
@@ -211,4 +246,6 @@ if __name__=='__main__':
     directedgraph_cycle ={1:[2],2:[3],3:[4,7],4:[5],5:[6],6:[],7:[5],8:[9],9:[10],10:[8]}
     directedgraph_notcycle={1:[2],2:[3],3:[4,7],4:[5],5:[6],6:[],7:[5],8:[9],9:[10],10:[]}
     print(isCycle_directed(directedgraph_notcycle))
+    mat = [[0,0,0],[0,1,0],[0,0,0]]
+    print(updateMatrix(mat))
 
